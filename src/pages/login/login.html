@@ -1,0 +1,84 @@
+<ion-content  text-center>
+
+
+    <div class="bg">
+      <div class="head" text-center *ngIf="inputsClicked">
+        <h1>TODO-LIST</h1>
+        <h5>M2PGI-2018</h5>
+      <!--<img src="assets/imgs/todolistLogo.png" class="logo-login" >-->
+      </div>
+      <div class="inputs">
+        <ion-item>
+          <ion-label fixed>Email</ion-label>
+          <ion-input type="text" [(ngModel)]="user.email" (click)="inputsClick()"></ion-input>
+        </ion-item>
+        <ion-item class="pass">
+          <ion-label fixed>Password</ion-label>
+          <ion-input type="password" [(ngModel)]="user.password" (click)="inputsClick()"></ion-input>
+        </ion-item>
+        <button ion-button block (click)="login(user)"><b>Login</b></button>
+
+        <p>Or create new account <span (click)="register()"> <strong class="lien">Here</strong></span></p>
+
+
+        <button ion-button icon-left (click)="loginGoogle()" block outline class="btn-gmail">
+          <ion-icon name="logo-googleplus"></ion-icon>
+          LOGIN WITH GOOGLE +
+        </button>
+
+
+        <button ion-button icon-left (click)="loginFacebook()" block outline class="btn-face">
+          <ion-icon name="logo-facebook"></ion-icon>
+          LOGIN WITH FACEBOOK
+        </button>
+
+      </div>
+    </div>
+
+
+  <!--<div class="back">
+
+    <div class="head" text-center>
+      <br>
+      <br>
+      <h1>M2PGI-TODOLIST-2018</h1>
+      <img src="assets/imgs/todolistLogo.png" class="logo-login">
+    </div>
+
+  <div class="inputs">
+
+    <ion-item >
+      <ion-label >Adresse Email</ion-label>&lt;!&ndash;floating&ndash;&gt;
+      <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+    </ion-item>
+
+    <ion-item style="margin-top: 1%;">
+      <ion-label >Mot de passe</ion-label>&lt;!&ndash;floating&ndash;&gt;
+      <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+    </ion-item>
+
+      <button ion-button icon-left (click)="login(user)" block outline  class="btn-login">Login </button>
+
+
+     <p>Or create new account <a href="" ng-click="register("> <strong class="lien">Here</strong></a></p>
+
+
+      <button ion-button icon-left (click)="loginGoogle()" block outline class="btn-gmail">
+        <ion-icon name="logo-googleplus"></ion-icon>
+        LOGIN WITH GOOGLE +
+      </button>
+
+
+
+      <button ion-button icon-left (click)="loginFacebook()" block outline class="btn-face">
+        <ion-icon name="logo-facebook"></ion-icon>
+        LOGIN WITH FACEBOOK
+      </button>
+
+  </div>
+  </div>
+
+-->
+</ion-content>
+
+

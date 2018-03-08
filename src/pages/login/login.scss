@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+
+page-login {
+  .bg {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(160deg, #B627F2 30%, #10DFC8 70%);
+    position: fixed;
+  }
+  .head {
+    position: relative;
+    display: block;
+    color: #fff;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+  }
+  .head h1 {
+    font-size: 7vh !important;
+    font-weight: lighter !important;
+    font-family: 'Pacifico', cursive;
+    position: relative;
+  }
+  .head img {
+    width: 150px;
+    height: 150px;
+    position: relative;
+  }
+  .head h5 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-top: -1.5%;
+    font-weight: 200;
+    font-size: 2.5vh;
+  }
+  .inputs {
+    position: absolute;
+    display: block;
+    top: 59%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    color: #fff;
+    opacity: 0.8;
+  }
+  ion-item {
+    background: transparent !important;
+    border: 1px solid #fff !important;
+    border-radius: 8px;
+
+    ion-input {
+      color: #000000;
+
+    }
+    ion-label {
+      color: #fff !important;
+    }
+    .item-inner {
+      border: 0 !important;
+      margin-top: 5px;
+    }
+
+  }
+
+  .pass {
+    margin-top: 2px;
+  }
+
+  button {
+    position: absolute;
+    display: block;
+    top: 50%;
+    border: 1px solid #fff;
+    box-shadow: 0px;
+    border-radius: 5px;
+  }
+
+  .lien {
+    color: black;
+    text-decoration: none;
+  }
+
+  .btn-face {
+    background-color: #428bca;
+    color: white;
+    margin-top: 2%;
+
+  }
+
+  .btn-gmail {
+    background-color: #d9534f;
+    color: white;
+    margin-top: 10%;
+
+  }
+
+  /* .back{
+     width: 100%;
+     height: 100%;
+     background: linear-gradient(160deg, #B627F2 25%, #10DFCB 75%);
+     text-align: center;
+     margin-top: -5%;
+
+  }
+
+   .head {
+  !*   position: absolute;
+     display: block;
+     color: #fff;
+     top: 15%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     width: 100%;*!
+     width: 100%;
+     left: 50%;
+     display: block;
+     margin-left: 3%;
+
+   }
+
+   .head h1 {
+     font-size: 3vh!important;
+     font-weight: lighter!important;
+     font-family: fantasy;
+     font-style: oblique;
+     color: #020002;
+
+   }
+   .head img{
+     width:130px;
+     height: 130px;
+     //margin-bottom: -;
+   }
+
+   .inputs {
+   !*  position: absolute;
+     display: block;
+     top: 62%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     width: 80%;
+     margin-top: 10px;*!
+    // color: #fff;
+     //opacity: 0.7;
+     left: 50%;
+     width: 80%;
+     margin-left: 10%;
+     display: block;
+     margin-top: 10%;
+
+
+
+   }
+
+   ion-item {
+     background: transparent!important;
+     border: 1px solid #fff!important;
+     border-radius: 8px;
+     ion-input {
+       color: #fff;
+     }
+     ion-label {
+       color: #fff!important;
+     }
+   }
+
+   .btn-login{
+     margin-top: 5%;
+     top: 50%;
+     background: #fff !important;
+     border-radius: 5px;
+     border: 1px solid #fff;
+     box-shadow: 0px;
+     color: #9A9595!important;
+   }
+
+   .lien{
+     color: black;
+     text-decoration:none;
+   }
+
+   .btn-face{
+     background-color: #428bca;
+     color: white;
+     margin-top: 2%;
+     border-radius: 5px;
+   }
+
+   .btn-gmail{
+     background-color: #d9534f;
+     color: white;
+     margin-top: 10%;
+     border-radius: 5px;
+   }*/
+
+}
