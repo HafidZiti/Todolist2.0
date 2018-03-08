@@ -70,7 +70,7 @@ export class LoginPage {
       firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
         .then(suss=>{
           alert('bien connecté ');
-            this.navCtrl.push(TodolistPage);
+            this.navCtrl.push('TodolistPage');
         }).catch(err=>{
         alert('non connecté');
       })
