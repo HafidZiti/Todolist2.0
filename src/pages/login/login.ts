@@ -12,6 +12,7 @@ import {AngularFireModule} from "angularfire2";
 import firebase from 'firebase';
 import {TodolistPage} from "../todolist/todolist";
 import {RegisterPage} from "../register/register";
+import {MenuPage} from "../menu/menu";
 
 @IonicPage()
 @Component({
@@ -49,7 +50,7 @@ export class LoginPage {
       const result = this.ofAuth.auth.signInWithEmailAndPassword(user.email,user.password);
       console.log(result);
       if (result){
-        this.navCtrl.push('TodolistPage');
+        this.navCtrl.setRoot('MenuPage');
       }
     }catch (e)
     {
@@ -70,7 +71,7 @@ export class LoginPage {
       firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
         .then(suss=>{
           alert('bien connecté ');
-            this.navCtrl.push('TodolistPage');
+            this.navCtrl.setRoot('MenuPage');
         }).catch(err=>{
         alert('non connecté');
       })

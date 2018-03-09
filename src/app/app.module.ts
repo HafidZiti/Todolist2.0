@@ -10,7 +10,7 @@ import {GooglePlus} from "@ionic-native/google-plus";
 import {AngularFireModule} from "angularfire2";
 import{AngularFireAuthModule} from 'angularfire2/auth';
 import firebase from 'firebase';
-
+import {LoginPageModule} from "../pages/login/login.module";
 
 import {LoginPage} from "../pages/login/login";
 
@@ -28,13 +28,14 @@ export const Firebaseconfig = {
 @NgModule({
   declarations: [
     MyApp,
-    LoginPage,
+
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireAuthModule,
-    AngularFireModule.initializeApp(Firebaseconfig)
+    AngularFireModule.initializeApp(Firebaseconfig),
+    LoginPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
