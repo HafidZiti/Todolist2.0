@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {User} from '../../models/user';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { HostListener } from '@angular/core';
+import {StatusBar} from '@ionic-native/status-bar';
+import {SplashScreen} from '@ionic-native/splash-screen';
+import {HostListener} from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
 
 import {GooglePlus} from "@ionic-native/google-plus";
@@ -20,59 +20,59 @@ import {MenuPage} from "../menu/menu";
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  user  = {} as User;
-  inputsClicked=true;
+  user = {} as User;
+  inputsClicked = true;
 
-  provider ={
-    loggedin:'',
-    name : '',
-    profilePicture:'',
-    email:''
+  provider = {
+    loggedin: '',
+    uid: '',
+    name: '',
+    profilePicture: '',
+    email: '',
+    typelogin: ''
   }
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private ofAuth:AngularFireAuth,
+              private ofAuth: AngularFireAuth,
               // public _facebook:Facebook
-              public google_plus :  GooglePlus){
+              public google_plus: GooglePlus) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  inputsClick(){
-    this.inputsClicked=false;
+  inputsClick() {
+    this.inputsClicked = false;
   }
 
-  login(user:User){
+  login(user: User) {
     try {
-      const result = this.ofAuth.auth.signInWithEmailAndPassword(user.email,user.password);
+      const result = this.ofAuth.auth.signInWithEmailAndPassword(user.email, user.password);
       console.log(result);
-      if (result){
+      if (result) {
         this.navCtrl.setRoot('MenuPage');
       }
-    }catch (e)
-    {
+    } catch (e) {
       console.error(e)
     }
-
   }
 
-  register(){
+  register() {
     this.navCtrl.push('RegisterPage');
   }
 
-  loginGoogle(){
+  loginGoogle() {
     this.google_plus.login({
-      'webClientId':'387359062142-6h38hdacmoi8eidrem5foahehmba4fnp.apps.googleusercontent.com',
-      'offline':true
-    }).then(res=>{
+      'webClientId': '387359062142-6h38hdacmoi8eidrem5foahehmba4fnp.apps.googleusercontent.com',
+      'offline': true
+    }).then(res => {
       firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
-        .then(suss=>{
+        .then(suss => {
           alert('bien connecté ');
-            this.navCtrl.setRoot('MenuPage');
-        }).catch(err=>{
+          this.navCtrl.setRoot('MenuPage');
+        }).catch(err => {
         alert('non connecté');
       })
     })

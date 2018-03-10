@@ -18,8 +18,15 @@
 <ion-content padding>
 Mes listes
 
+  <ion-list>
+    <ion-item class="text" *ngFor="let item of (listes | async)">
+      {{item.name}} <br>
+      {{item.desc}}
+    </ion-item>
+  </ion-list>
+
   <ion-fab class="fixed-div">
-    <button ion-fab fab-right fab-bottom >
+    <button ion-fab fab-right fab-bottom (click)="openTodoListModal()">
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
