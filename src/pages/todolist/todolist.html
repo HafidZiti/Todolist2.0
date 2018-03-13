@@ -9,8 +9,15 @@
     </ion-buttons>
 
 
+
+
     <ion-title>My TODOList </ion-title>
   </ion-navbar>
+
+  <button ion-item class="btn-logout" (click)="logoutUser()">
+       <span> <ion-icon name="log-out"></ion-icon>
+        Logout</span>
+  </button>
 
 </ion-header>
 
@@ -19,14 +26,14 @@
 Mes listes
 
   <ion-list>
-    <ion-item class="text" *ngFor="let item of (listes | async)">
+    <ion-item class="text" *ngFor="let item of (listes01 | async)">
       {{item.name}} <br>
       {{item.desc}}
     </ion-item>
   </ion-list>
 
   <ion-fab class="fixed-div">
-    <button ion-fab fab-right fab-bottom (click)="openTodoListModal()">
+    <button ion-fab fab-right fab-bottom  (click)="openTodoListModal()">
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>

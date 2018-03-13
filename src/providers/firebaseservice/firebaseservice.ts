@@ -1,36 +1,38 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase, AngularFireList, AngularFireObject} from 'angularfire2/database';
-import {TodoItem, TodoList} from "../../Models/Todoliste";
+import {TodoItem, TodoList, UserProfile} from "../../Models/Todoliste";
 import {Observable} from "rxjs/Observable";
 import {AngularFireAuth} from 'angularfire2/auth';
 import { NgxLoremIpsumService } from 'ngx-lorem-ipsum';
+
 
 @Injectable()
 export class FirebaseserviceProvider {
 
   listes: AngularFireList<TodoList> = null;
   items: AngularFireList<TodoItem> = null;
-  userId: string;
+  currUser:UserProfile;
 
   constructor(private db: AngularFireDatabase,
               private  gene_para:NgxLoremIpsumService,
               private afAuth: AngularFireAuth) {
 
-    this.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.userId = user.uid;
-        this.listes = this.db.list('Listes/'.concat(this.userId));
-      }
-    })
+  }
+
+  private setUserUid(){
+    this.currUser = JSON.parse(localStorage.getItem('_currentUser'));
+    this.listes = this.db.list('Listes/'.concat(this.currUser.uid));
   }
 
   getItemsList():Observable<TodoList[]>{
+    this.setUserUid();
    // if (!this.userId) return;
     return this.listes.valueChanges();
   }
 
   insertListe(liste: TodoList) {
+    this.setUserUid();
     const listRef$ = this.listes.push(<TodoList>{});
     liste.desc=this.gene_para.get(1, 0);
     liste.uuid=listRef$.key;

@@ -12,7 +12,8 @@ import {AngularFireModule} from "angularfire2";
 import firebase from 'firebase';
 import {TodolistPage} from "../todolist/todolist";
 import {RegisterPage} from "../register/register";
-import {MenuPage} from "../menu/menu";
+//import {MenuPage} from "../menu/menu";
+import {UserProfile} from "../../Models/Todoliste";
 
 @IonicPage()
 @Component({
@@ -41,6 +42,7 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+
   }
 
   inputsClick() {
@@ -52,7 +54,22 @@ export class LoginPage {
       const result = this.ofAuth.auth.signInWithEmailAndPassword(user.email, user.password);
       console.log(result);
       if (result) {
-        this.navCtrl.setRoot('MenuPage');
+        this.ofAuth.authState.subscribe(data => {
+
+          console.log('data login firebase ', data);
+          if (data != null) {
+            let _user: UserProfile = {
+              uid: data.uid,
+              email: data.email,
+              name: data.displayName,
+              url_image: data.photoURL
+            };
+            console.log('ce user va etre ajouter au loacal ', _user)
+            localStorage.setItem('_currentUser', JSON.stringify(_user));
+            this.navCtrl.setRoot('TodolistPage');
+          }
+
+        });
       }
     } catch (e) {
       console.error(e)
@@ -71,7 +88,7 @@ export class LoginPage {
       firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
         .then(suss => {
           alert('bien connecté ');
-          this.navCtrl.setRoot('MenuPage');
+          this.navCtrl.setRoot('TodolistPage');
         }).catch(err => {
         alert('non connecté');
       })

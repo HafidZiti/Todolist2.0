@@ -10,9 +10,20 @@
     <ion-title>Todoitems</ion-title>
   </ion-navbar>
 
+  <button ion-item class="btn-logout" (click)="logoutUser()">
+       <span> <ion-icon name="log-out"></ion-icon>
+        Logout</span>
+  </button>
 </ion-header>
 
 
 <ion-content padding>
+
+  <ion-list>
+    <ion-item class="text" *ngFor="let item of (listes | async)">
+      {{item.name}} <br>
+      {{item.desc}}
+    </ion-item>
+  </ion-list>
 
 </ion-content>

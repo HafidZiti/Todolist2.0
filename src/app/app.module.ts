@@ -17,6 +17,7 @@ import {LoginPage} from "../pages/login/login";
 import { FirebaseserviceProvider } from '../providers/firebaseservice/firebaseservice';
 
 import { NgxLoremIpsumModule } from 'ngx-lorem-ipsum';
+import { AuthserviceProvider } from '../providers/authservice/authservice';
 
 export const Firebaseconfig = {
   apiKey: "AIzaSyAn8rqs5ppwHvMmkXClmykymGEgJg4CRXQ",
@@ -53,7 +54,8 @@ export const Firebaseconfig = {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GooglePlus,
-    FirebaseserviceProvider
+    FirebaseserviceProvider,
+    AuthserviceProvider
   ]
 })
 export class AppModule {}

@@ -22,8 +22,7 @@ export interface UserProfile{
   name?:string,
   url_image ?:string,
   email :string,
-  from?:string,    //form facebook or gmail or authentification antive
-  ListTodos?:Set<TodoList>
+  //from?:string,    //form facebook or gmail or authentification antive
 }
 
 export interface Groupe{

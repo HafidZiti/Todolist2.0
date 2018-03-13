@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the TodoitemsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {FirebaseserviceProvider} from "../../providers/firebaseservice/firebaseservice";
+import {Observable} from 'rxjs/Observable';
+import {AngularFireAuth} from 'angularfire2/auth';
+import {TodoList} from "../../Models/Todoliste";
 
 @IonicPage()
 @Component({
@@ -15,11 +12,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class TodoitemsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,private _Fireservice:FirebaseserviceProvider,
+              private _authent: AngularFireAuth){
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TodoitemsPage');
   }
+
+  ngOnInit() {
+    console.log('ngOnInit TodolistPage');
+  }
+
 
 }
