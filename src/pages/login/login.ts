@@ -12,7 +12,7 @@ import {AngularFireModule} from "angularfire2";
 import firebase from 'firebase';
 import {TodolistPage} from "../todolist/todolist";
 import {RegisterPage} from "../register/register";
-//import {MenuPage} from "../menu/menu";
+import {MenuPage} from "../menu/menu";
 import {UserProfile} from "../../Models/Todoliste";
 
 @IonicPage()
@@ -66,7 +66,10 @@ export class LoginPage {
             };
             console.log('ce user va etre ajouter au loacal ', _user)
             localStorage.setItem('_currentUser', JSON.stringify(_user));
-            this.navCtrl.setRoot('TodolistPage');
+            this.navCtrl.setRoot('MenuPage').then(() => {
+                const index = this.navCtrl.getActive().index;
+                this.navCtrl.remove(0, index);
+              });
           }
 
         });
@@ -88,7 +91,7 @@ export class LoginPage {
       firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
         .then(suss => {
           alert('bien connecté ');
-          this.navCtrl.setRoot('TodolistPage');
+          this.navCtrl.setRoot('MenuPage');
         }).catch(err => {
         alert('non connecté');
       })

@@ -16,9 +16,7 @@ export class FirebaseserviceProvider {
 
   constructor(private db: AngularFireDatabase,
               private  gene_para:NgxLoremIpsumService,
-              private afAuth: AngularFireAuth) {
-
-  }
+              private afAuth: AngularFireAuth) {}
 
   private setUserUid(){
     this.currUser = JSON.parse(localStorage.getItem('_currentUser'));
