@@ -9,6 +9,10 @@ import {TodoItem} from "../../Models/Todoliste";
 })
 export class ModaltodoitemsPage {
   itemsListe = {} as TodoItem;
+  toEdit : boolean = false;
+
+  todaData_recive;
+  completeORnot;
 
 
   constructor(private view: ViewController,
@@ -17,13 +21,19 @@ export class ModaltodoitemsPage {
 
   ionViewWillLoad() {
     let data = this.navParams.get('dataName');
+    if (data){
+      this.toEdit = true;
+      this.todaData_recive = data;
+      this.completeORnot = data.complete;
+    }
   }
 
   chargeData(item:TodoItem) {
-    //console.log("donnée changées", this.todaData_recive);
-    this.view.dismiss(item);
+    if (this.toEdit)
+    this.view.dismiss(this.todaData_recive);
+    else
+      this.view.dismiss(item);
   }
-
 
   closeModal() {
     this.view.dismiss(null);

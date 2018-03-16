@@ -4,7 +4,7 @@ import {AngularFireDatabase, AngularFireList, AngularFireObject} from 'angularfi
 import {TodoItem, TodoList, UserProfile} from "../../Models/Todoliste";
 import {Observable} from "rxjs/Observable";
 import {AngularFireAuth} from 'angularfire2/auth';
-import { NgxLoremIpsumService } from 'ngx-lorem-ipsum';
+import {NgxLoremIpsumService} from 'ngx-lorem-ipsum';
 
 
 @Injectable()
@@ -12,19 +12,20 @@ export class FirebaseserviceProvider {
 
   listes: AngularFireList<TodoList> = null;
   items: AngularFireList<TodoItem> = null;
-  currUser:UserProfile;
+  currUser: UserProfile;
 
   constructor(private db: AngularFireDatabase,
-              private  gene_para:NgxLoremIpsumService,
-              private afAuth: AngularFireAuth) {}
+              private  gene_para: NgxLoremIpsumService,
+              private afAuth: AngularFireAuth) {
+  }
 
-  private setUserUid(){
+  private setUserUid() {
     this.currUser = JSON.parse(localStorage.getItem('_currentUser'));
     this.listes = this.db.list('Listes/'.concat(this.currUser.uid));
   }
 
 
-  getTodoList():Observable<TodoList[]>{
+  getTodoList(): Observable<TodoList[]> {
     this.setUserUid();
     return this.listes.valueChanges();
   }
@@ -32,27 +33,36 @@ export class FirebaseserviceProvider {
   insertListe(liste: TodoList) {
     this.setUserUid();
     const listRef$ = this.listes.push(<TodoList>{});
-    liste.desc=this.gene_para.get(1, 0);
-    liste.uuid=listRef$.key;
+    liste.desc = this.gene_para.get(1, 0);
+    liste.uuid = listRef$.key;
     liste.creation_date = Date.now();
     listRef$.set(liste);
   }
 
 
-  getItemsList(uid_liste:string):Observable<TodoItem[]>{
+  getItemsList(uid_liste: string): Observable<TodoItem[]> {
     this.items = this.db.list('Items/'.concat(uid_liste));
     return this.items.valueChanges();
   }
 
 
-  insertItmes(liste:TodoList, item : TodoItem) {
+  insertItmes(liste: TodoList, item: TodoItem) {
     this.items = this.db.list('Items/'.concat(liste.uuid));
     const listItem$ = this.items.push(<TodoItem>{});
-    item.desc=this.gene_para.get(1, 0);
-    item.uuid=listItem$.key;
+    item.desc = this.gene_para.get(1, 0);
+    item.uuid = listItem$.key;
     item.creation_date = Date.now();
     listItem$.set(item);
   }
+
+  public updateItemFromList(_todolist: TodoList, _item: TodoItem): Promise<void> {
+    return this.db.list('Items/'.concat(_todolist.uuid)).set(_item.uuid, _item);
+  }
+
+  public removeItemFromList(_todolist: TodoList,_uidItem): Promise<void> {
+    return this.db.list('Items/' + _todolist.uuid).remove(_uidItem);
+  }
+
 
   /*  public getLists(): Observable<TodoList[]> {
       return this.TodoRef$.valueChanges();

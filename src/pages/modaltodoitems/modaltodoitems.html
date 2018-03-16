@@ -14,7 +14,7 @@
 
 <ion-content padding>
 
-  <form (ngSubmit)="chargeData(itemsListe)">
+  <form (ngSubmit)="chargeData(itemsListe)"  *ngIf="toEdit == false">
     <br>
     <br>
     <ion-list>
@@ -27,6 +27,38 @@
       <ion-item>
         <ion-label color="primary">Description</ion-label>
         <ion-textarea rows="6" [(ngModel)]="itemsListe.desc" name = "desc"></ion-textarea>
+      </ion-item>
+
+    </ion-list>
+    <br>
+    <ion-buttons text-center>
+      <button ion-button color="dark" type="submit">Save</button>
+    </ion-buttons>
+
+  </form>
+
+  <form (ngSubmit)="chargeData()" *ngIf="toEdit == true">
+
+    <ion-list>
+      <ion-item>
+        <ion-label color="primary">Uuid</ion-label>
+        <ion-input disabled="true" type="text" value="{{todaData_recive.uuid}}"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">Titre</ion-label>
+        <ion-input type="text"  [(ngModel)]="todaData_recive.name" name="name"  value="{{todaData_recive.name}}"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">Description</ion-label>
+        <ion-textarea [(ngModel)]="todaData_recive.desc"  name="desc" value="{{todaData_recive.desc}}" rows="3" ></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">Complete</ion-label>
+        <ion-checkbox  [(ngModel)]="todaData_recive.complete"  name="complete" disabled="{{completeORnot}}"
+                       checked="{{todaData_recive.complete}}" item-right></ion-checkbox >
       </ion-item>
 
     </ion-list>
