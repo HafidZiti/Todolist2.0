@@ -14,6 +14,7 @@ export interface TodoItem {
   uuid? : string,
   name : string,
   desc? : string,
+  creation_date?,
   complete : boolean
 }
 

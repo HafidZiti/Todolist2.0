@@ -23,9 +23,9 @@ export class FirebaseserviceProvider {
     this.listes = this.db.list('Listes/'.concat(this.currUser.uid));
   }
 
-  getItemsList():Observable<TodoList[]>{
+
+  getTodoList():Observable<TodoList[]>{
     this.setUserUid();
-   // if (!this.userId) return;
     return this.listes.valueChanges();
   }
 
@@ -38,28 +38,38 @@ export class FirebaseserviceProvider {
     listRef$.set(liste);
   }
 
+
+  getItemsList(uid_liste:string):Observable<TodoItem[]>{
+    this.items = this.db.list('Items/'.concat(uid_liste));
+    return this.items.valueChanges();
+  }
+
+
+  insertItmes(liste:TodoList, item : TodoItem) {
+    this.items = this.db.list('Items/'.concat(liste.uuid));
+    const listItem$ = this.items.push(<TodoItem>{});
+    item.desc=this.gene_para.get(1, 0);
+    item.uuid=listItem$.key;
+    item.creation_date = Date.now();
+    listItem$.set(item);
+  }
+
   /*  public getLists(): Observable<TodoList[]> {
       return this.TodoRef$.valueChanges();
     }
-
     public insertListe(_NewListe): Promise<void> {
       const todoListRef$ = this.TodoRef$.push(<TodoList>{});
-
       const todoList: TodoList = {
         uuid: todoListRef$.key,
         name: _NewListe.name,
         desc:_NewListe.desc,
         items: new Set()
       };
-
       console.log("path", '/list-tasks/' + todoListRef$.key + '/items/');
       return todoListRef$.set(todoList);
     }
-
     public updateListe() {
-
     }
-
     public insertItem(_todolist: TodoList, _data_clavier): Promise<void> {
       const todoListItemRef$ = this.db.list('/list-tasks/' + _todolist.uuid + '/items/').push(<TodoItem>{});
       const item: TodoItem = {
@@ -70,20 +80,16 @@ export class FirebaseserviceProvider {
       };
       return todoListItemRef$.set(item);
     }
-
     public GetItmesListeByKeyFirebase(todolist: TodoList): AngularFireList<TodoItem> {
       return this.db.list(`/todo-lists/${todolist.uuid}/items/`);
     }
-
     public GetItems(_todoliste: TodoList): Observable<TodoList> {
       const itemslist: AngularFireObject<TodoList> = this.db.object('/list-tasks/' + _todoliste.uuid + '/');
       return itemslist.valueChanges();
     }
-
     public removeItemFrom(_todolist: TodoList, id_item): Promise<void> {
       return this.db.list('/list-tasks/' + _todolist.uuid + '/items/').remove(id_item);
     }
-
     public updateItemFrom(_todolist: TodoList, _item: TodoItem): Promise<void> {
       return this.db.list('/list-tasks/' + _todolist.uuid + '/items/').set(_item.uuid, _item);
     }*/

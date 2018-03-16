@@ -8,11 +8,39 @@
 
 <ion-content padding>
 
-  <!--<ion-list>-->
-    <!--<ion-item class="text" *ngFor="let item of (listes | async)">-->
-      <!--{{item.name}} <br>-->
-      <!--{{item.desc}}-->
-    <!--</ion-item>-->
-  <!--</ion-list>-->
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of (itemsListe | async)">
+      <ion-item>
+        <ion-row>
+          <ion-col col-1>
+            <ion-icon  *ngIf="item.complete" name="md-checkmark-circle" color="danger"></ion-icon>
+            <ion-icon *ngIf="!item.complete" name="md-clock" color="secondary"></ion-icon>
+          </ion-col>
+          <ion-col col-11>
+            <h2>{{item.name}}</h2>
+          </ion-col>
+        </ion-row>
+        <p>{{item.desc | slice:0:15}}...</p>
+      </ion-item>
+      <ion-item-options>
+        <button ion-button color="primary" icon-start (click)="openUpdateModal(item.uuid,item.name,item.desc,item.complete)"><!---->
+          <ion-icon name="ios-create"></ion-icon>
+          Edit
+        </button>
+        <button ion-button color="secondary" icon-start (click)="removeItem(item.uuid)">
+          <ion-icon name="md-remove-circle"></ion-icon>
+          Supp
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+
+
+  <ion-fab class="fixed-div">
+    <button ion-fab fab-right fab-bottom (click)="openTodoItemModal()" style="background-color:#ff332c;">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 
 </ion-content>

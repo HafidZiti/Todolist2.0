@@ -1,0 +1,40 @@
+<ion-header>
+
+  <ion-navbar color="secondary">
+    <ion-title><strong>Add Items To </strong></ion-title>
+
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <form (ngSubmit)="chargeData(itemsListe)">
+    <br>
+    <br>
+    <ion-list>
+      <ion-item>
+        <ion-label color="primary">Title</ion-label>
+        <ion-input type="text" [(ngModel)]="itemsListe.name" name="titre"></ion-input>
+      </ion-item>
+      <br>
+
+      <ion-item>
+        <ion-label color="primary">Description</ion-label>
+        <ion-textarea rows="6" [(ngModel)]="itemsListe.desc" name = "desc"></ion-textarea>
+      </ion-item>
+
+    </ion-list>
+    <br>
+    <ion-buttons text-center>
+      <button ion-button color="dark" type="submit">Save</button>
+    </ion-buttons>
+
+  </form>
+
+</ion-content>

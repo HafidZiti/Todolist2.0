@@ -1,33 +1,37 @@
 <ion-header>
   <ion-navbar>
     <ion-buttons left>
-      <button ion-button  clear menuToggle>
+      <button ion-button menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
+
     </ion-buttons>
 
-    <ion-title>My TODOList </ion-title>
+    <ion-title>My TODOList</ion-title>
+
+    <button ion-item class="btn-logout" (click)="logoutUser()">
+      <ion-icon name="log-out"></ion-icon>
+    </button>
+
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
-Mes listes
+  Mes listes
 
   <ion-list>
-    <ion-item class="text" *ngFor="let item of (listes01 | async)">
-      {{item.name}} <br>
-      {{item.desc}}
+    <ion-item class="text" *ngFor="let liste of (listes01 | async)" (click)="onloadItemsPage(liste)">
+      {{liste.name}} <br>
+      {{liste.desc}}
     </ion-item>
   </ion-list>
 
   <ion-fab class="fixed-div">
-    <button ion-fab fab-right fab-bottom  (click)="openTodoListModal()">
+    <button ion-fab fab-right fab-bottom (click)="openTodoListModal()">
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
-
 
 
 </ion-content>

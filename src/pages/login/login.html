@@ -10,11 +10,11 @@
       <div class="inputs">
         <ion-item>
           <ion-label fixed>Email</ion-label>
-          <ion-input type="text" [(ngModel)]="user.email" (click)="inputsClick()"></ion-input>
+          <ion-input type="text" [(ngModel)]="user.email"></ion-input>
         </ion-item>
         <ion-item class="pass">
           <ion-label fixed>Password</ion-label>
-          <ion-input type="password" [(ngModel)]="user.password" (click)="inputsClick()"></ion-input>
+          <ion-input type="password" [(ngModel)]="user.password" ></ion-input>
         </ion-item>
         <button ion-button block (click)="login(user)"><b>Login</b></button>
 

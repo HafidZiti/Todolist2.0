@@ -6,7 +6,6 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import {LoginPage} from "../login/login";
 
 
-
 @IonicPage()
 @Component({
   selector: 'page-register',

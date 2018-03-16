@@ -16,6 +16,7 @@ import {UserProfile} from "../../Models/Todoliste";
 })
 export class TodolistPage {
   listes01: Observable<TodoList[]> = null;
+  //itemListe: Observable<TodoList[]> = null;
 
   currUser: UserProfile;
 
@@ -24,14 +25,20 @@ export class TodolistPage {
               private _modal: ModalController,
               private _Fireservice: FirebaseserviceProvider,
               private afAuth: AngularFireAuth,
-              private db: AngularFireDatabase) {}
+              private db: AngularFireDatabase) {
+  }
 
   ngOnInit() {
     console.log('ngOnInit TodolistPage');
-    this.listes01 = this._Fireservice.getItemsList();
-
+    this.listes01 = this._Fireservice.getTodoList();
   }
 
+
+  onloadItemsPage(liste: TodoList) {
+    let params = { listeSelected: liste};
+    this.navCtrl.push("TodoitemsPage", params);
+
+  }
 
   private openTodoListModal() {
     const myModal: Modal = this._modal.create('ModaltodolistPage');
@@ -43,5 +50,15 @@ export class TodolistPage {
         this._Fireservice.insertListe(_todolist);
       }
     }));
+  }
+
+
+  logoutUser() {
+    this.afAuth.auth.signOut().then()
+      .then(res => {
+        console.log("after logout ");
+        localStorage.clear();
+        this.navCtrl.setRoot('LoginPage');
+      })
   }
 }

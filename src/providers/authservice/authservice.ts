@@ -7,18 +7,38 @@ import {AngularFireAuth} from 'angularfire2/auth';
 
 @Injectable()
 export class AuthserviceProvider {
+  user: Observable<UserProfile>;
+  constructor( private afAuth: AngularFireAuth, private db: AngularFireDatabase) { }
 
-  users: AngularFireList<UserProfile> = null;
-  constructor(private db:AngularFireDatabase) {
-  }
+  // updateUserData(credential): Promise<User> {
+  //   //console.log('credential:', credential);
+  //   let user: User = {
+  //     uid: credential.user.uid,
+  //     email: credential.user.email,
+  //     displayName: credential.user.displayName,
+  //     photoURL: credential.user.photoURL
+  //   }
+  //   //console.log('user:', user);
+  //   // Check if new user
+  //   if (credential.additionalUserInfo.isNewUser) {
+  //     // Sets user data to firebase on login
+  //     this.db.list(`/users/`).set(user.uid, user);
+  //   }
+  //   localStorage.setItem('user', JSON.stringify(user));
+  //   return new Promise(resolve => resolve(user));
+  // }
 
-/*  insertUser(user: UserProfile) {
-    this.users = this.db.list('Users/'.concat(user.uid));
-    const listRef$ = this.listes.push(<TodoList>{});
-    liste.desc=this.gene_para.get(1, 0);
-    liste.uuid=listRef$.key;
-    liste.creation_date = Date.now();
-    listRef$.set(liste);
-  }*/
-
+  // checkConnection(): boolean {
+  //   return !!localStorage.getItem("user");
+  // }
+  //
+  // getUserData() {
+  //   const user = JSON.parse(localStorage.getItem("user"));
+  //   return this.db.object(`/users/${user.uid}`).valueChanges();
+  // }
+  //
+  // signOut() {
+  //   return this.afAuth.auth.signOut()
+  //     .then(res => localStorage.clear());
+  // }
 }
