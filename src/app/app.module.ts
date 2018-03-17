@@ -18,6 +18,12 @@ import { FirebaseserviceProvider } from '../providers/firebaseservice/firebasese
 
 import { NgxLoremIpsumModule } from 'ngx-lorem-ipsum';
 import { AuthserviceProvider } from '../providers/authservice/authservice';
+import {AboutPage} from "../pages/about/about";
+import {TodolistPage} from "../pages/todolist/todolist";
+import {SharedtodolistePage} from "../pages/sharedtodoliste/sharedtodoliste";
+import {TodoitemsPageModule} from "../pages/todoitems/todoitems.module";
+import {TodolistPageModule} from "../pages/todolist/todolist.module";
+//import {SharedtodolistePageModule} from "../pages/sharedtodoliste/sharedtodoliste.module";
 
 export const Firebaseconfig = {
   apiKey: "AIzaSyAn8rqs5ppwHvMmkXClmykymGEgJg4CRXQ",
@@ -33,7 +39,9 @@ export const Firebaseconfig = {
 @NgModule({
   declarations: [
     MyApp,
-
+    AboutPage,
+    SharedtodolistePage,
+    //TodolistPage,
   ],
   imports: [
     BrowserModule,
@@ -42,12 +50,18 @@ export const Firebaseconfig = {
     AngularFireModule.initializeApp(Firebaseconfig),
     LoginPageModule,
     AngularFireDatabaseModule,
-    NgxLoremIpsumModule
+    NgxLoremIpsumModule,
+    TodoitemsPageModule,
+    TodolistPageModule,
+    //SharedtodolistePageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     LoginPage,
+    AboutPage,
+    TodolistPage,
+    SharedtodolistePage,
   ],
   providers: [
     StatusBar,

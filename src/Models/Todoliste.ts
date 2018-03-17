@@ -6,6 +6,7 @@ export interface TodoList {
   creation_date?,
   name : string,
   desc? :string,
+  url_image? : string,
   items ?: Set<TodoItem>
 }
 

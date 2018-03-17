@@ -3,8 +3,7 @@ import {IonicPage, NavController, NavParams, ModalController,Modal,ToastControll
 import {FirebaseserviceProvider} from "../../providers/firebaseservice/firebaseservice";
 import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {TodoItem, TodoList} from "../../Models/Todoliste";
-
+import {TodoList, TodoItem} from "../../Models/Todoliste";
 @IonicPage()
 @Component({
   selector: 'page-todoitems',

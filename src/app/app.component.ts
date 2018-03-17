@@ -4,12 +4,23 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import {LoginPage} from "../pages/login/login";
+import {AboutPage} from "../pages/about/about";
+import {TodolistPage} from "../pages/todolist/todolist";
+import {SharedtodolistePage} from "../pages/sharedtodoliste/sharedtodoliste";
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage:any = LoginPage;
+
+  menu=[
+    // {title:'Accueil',component:AccueilPage},
+    {title:'Mes Listes',component:TodolistPage},
+    {title:'Listes Partagées',component:SharedtodolistePage},
+    {title:'A Propos',component:AboutPage},
+
+  ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
@@ -30,5 +41,8 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+  }
+  onPage(m){
+    this.rootPage=m.component;
   }
 }
