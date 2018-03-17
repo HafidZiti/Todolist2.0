@@ -5,4 +5,25 @@ page-todoitems {
     bottom: 1%;
   }
 
+  ion-card{
+
+    img{
+      margin-left: auto;
+      margin-right: auto;
+      width: 70%;
+      height: 45%;
+    }
+
+    ion-row{
+      margin-top: -4.5%;
+    }
+
+  }
+
+  .btn-more {
+    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.9);
+    color: red;
+    background-color: transparent;
+  }
+
 }

@@ -18,14 +18,35 @@
 </ion-header>
 
 <ion-content padding>
-  Mes listes
 
-  <ion-list>
-    <ion-item class="text" *ngFor="let liste of (listes01 | async)" (click)="onloadItemsPage(liste)">
-      {{liste.name}} <br>
-      {{liste.desc}}
+  <ion-list class="list-avatar-page">
+    <ion-item  *ngFor="let liste of (listes01 | async)">
+
+      <ion-avatar item-start>
+        <img src="assets/imgs/todolistLogo.png" (click)="onloadItemsPage(liste)">
+      </ion-avatar>
+
+      <h2 (click)="onloadItemsPage(liste)">{{liste.name}}</h2>
+      <p (click)="onloadItemsPage(liste)">{{liste.desc}}</p>
+
+
+      <ion-fab right top >
+        <button ion-fab mini class="btn-more"><ion-icon name="ios-more"></ion-icon></button>
+        <ion-fab-list side="left">
+          <button ion-fab color="primary"><ion-icon name="create"></ion-icon></button>
+          <button ion-fab color="danger"><ion-icon name="md-trash"></ion-icon></button>
+          <button ion-fab color="secondary"><ion-icon name="md-share"></ion-icon></button>
+          <!--<button ion-fab color="light"><ion-icon name="md-qr-scanner"></ion-icon></button>-->
+        </ion-fab-list>
+      </ion-fab>
+      <br>
+      <br>
+      <ion-note item-end>6h Ago</ion-note>
+
     </ion-item>
+
   </ion-list>
+
 
   <ion-fab class="fixed-div">
     <button ion-fab fab-right fab-bottom (click)="openTodoListModal()">

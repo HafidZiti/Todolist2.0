@@ -8,12 +8,58 @@
 
 <ion-content padding>
 
+
+  <ion-card>
+
+    <img src="assets/imgs/todolistLogo.png"/>
+
+    <ion-card-content>
+      <ion-card-title>
+        {{_currentListe.name}}
+      </ion-card-title>
+      <p>
+        {{_currentListe.desc}}
+      </p>
+    </ion-card-content>
+
+    <ion-row no-padding>
+      <ion-col>
+        <button ion-button clear small color="danger" icon-start>
+          <ion-icon name='create'></ion-icon>
+          Update
+        </button>
+      </ion-col>
+
+      <ion-col text-center>
+
+        <ion-fab center middle>
+          <button ion-fab mini color="danger" class="btn-more"><ion-icon name="share-alt"></ion-icon></button>
+          <ion-fab-list side="left">
+            <button ion-fab color="primary"><ion-icon name="md-qr-scanner"></ion-icon></button>
+          </ion-fab-list>
+          <ion-fab-list side="right">
+            <button ion-fab color="secondary"><ion-icon name="ios-mail"></ion-icon></button>
+          </ion-fab-list>
+        </ion-fab>
+      </ion-col>
+
+      <ion-col text-right>
+        <button ion-button clear small color="danger" icon-start>
+          <ion-icon name='md-trash'></ion-icon>
+          Delete
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+
+
   <ion-list>
     <ion-item-sliding *ngFor="let item of (itemsListe | async)">
       <ion-item>
         <ion-row>
           <ion-col col-1>
-            <ion-icon  *ngIf="item.complete" name="md-checkmark-circle" color="danger"></ion-icon>
+            <ion-icon *ngIf="item.complete" name="md-checkmark-circle" color="danger"></ion-icon>
             <ion-icon *ngIf="!item.complete" name="md-clock" color="secondary"></ion-icon>
           </ion-col>
           <ion-col col-11>
@@ -34,7 +80,6 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-
 
 
   <ion-fab class="fixed-div">
