@@ -9,32 +9,32 @@ page-todolist {
     box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.9);
     color: black;
     background-color: transparent;
-    margin-top: 15px;
+    //margin-top: 15px;
   }
   .list-avatar-page {
-    height: 100%;
+    //height: 100%;
 
-    img {
-      width: 66px;
-      height: 66px;
-      //padding-top: 7%;
-
-    }
+    //img {
+    //  width: 66px;
+    //  height: 66px;
+    //  //padding-top: 7%;
+    //
+    //}
 
     ion-note {
       font-size: 12px;
       align-self: flex-start;
-      margin-top: 14px;
+      //margin-top: 14px;
     }
-    h2{
-      padding-top: 8%;
-      color: Black;
-      font-size: large;
-    }
-    ion-item {
-      height: 15%;
-     // margin-bottom: 3%;
-    }
+    //h2{
+    //  padding-top: 8%;
+    //  color: Black;
+    //  font-size: large;
+    //}
+    //ion-item {
+    //  height: 15%;
+    // // margin-bottom: 3%;
+    //}
 
   }
 }
