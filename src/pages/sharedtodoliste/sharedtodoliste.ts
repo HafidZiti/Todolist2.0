@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 /**
  * Generated class for the SharedtodolistePage page.
@@ -15,11 +16,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SharedtodolistePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private afAuth: AngularFireAuth) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SharedtodolistePage');
+  }
+
+  logoutUser() {
+    this.afAuth.auth.signOut().then()
+      .then(res => {
+        console.log("after logout ");
+        localStorage.clear();
+        this.navCtrl.setRoot('LoginPage');
+      })
   }
 
 }

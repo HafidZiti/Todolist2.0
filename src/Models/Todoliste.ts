@@ -4,8 +4,10 @@ export interface TodoList {
   id?: string,
   uuid? : string,
   creation_date?,
+  createdBy?:UserProfile,
   name : string,
   desc? :string,
+  url_image? : string,
   items ?: Set<TodoItem>
 }
 
@@ -19,6 +21,7 @@ export interface TodoItem {
 }
 
 export interface UserProfile{
+  key?:string,
   uid:string,
   name?:string,
   url_image ?:string,

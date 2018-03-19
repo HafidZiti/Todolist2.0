@@ -23,7 +23,6 @@ export class RegisterPage {
   async register(user : User){
     try {
       const result = await this.ofAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
-      console.log(result);
       if (result){
         this.navCtrl.push(LoginPage);
       }

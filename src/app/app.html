@@ -1,1 +1,18 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="content">
+  <ion-header>
+   <ion-toolbar color="secondary">
+     <ion-title>Menu</ion-title>
+   </ion-toolbar>
+
+  </ion-header>
+  <ion-content>
+    <!--<h1>Hello </h1>{{_CurrentUser.email}}-->
+    <ion-list>
+      <button menuClose="" ion-item="" *ngFor="let m of menu" (click)="onPage(m)">
+        {{m.title}}
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav #content [root]="rootPage"></ion-nav>

@@ -58,7 +58,12 @@ export class TodolistPage {
       .then(res => {
         console.log("after logout ");
         localStorage.clear();
-        this.navCtrl.setRoot('LoginPage');
+        console.log('on arrivé a ', this.navCtrl.length());this.navCtrl.remove(0, this.navCtrl.length()-1);
+        this.navCtrl.setRoot('LoginPage').then(() => {
+           const index = this.navCtrl.getActive().index;
+           console.log('on arrivé a ', index);
+          // this.navCtrl.remove(0, this.navCtrl.length());
+         });;
       })
   }
 }

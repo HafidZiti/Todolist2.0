@@ -1,17 +1,18 @@
-<ion-header>
-  <ion-navbar>
-    <ion-buttons left>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-
-    </ion-buttons>
+<ion-header xmlns:buttons-right="http://www.w3.org/1999/xhtml">
+  <ion-navbar color="secondary">
 
     <ion-title>My TODOList</ion-title>
 
-    <button ion-item class="btn-logout" (click)="logoutUser()">
-      <ion-icon name="log-out"></ion-icon>
+    <button ion-button="" menuToggle="">
+      <ion-icon name="menu"></ion-icon>
     </button>
+
+
+    <ion-buttons end>
+      <button ion-button="" color="light" (click)="logoutUser()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
 
   </ion-navbar>
 

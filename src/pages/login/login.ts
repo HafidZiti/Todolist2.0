@@ -14,6 +14,8 @@ import {TodolistPage} from "../todolist/todolist";
 import {RegisterPage} from "../register/register";
 //import {MenuPage} from "../menu/menu";
 import {UserProfile} from "../../Models/Todoliste";
+import {AuthserviceProvider} from "../../providers/authservice/authservice";
+import {copy} from "@ionic/app-scripts";
 
 @IonicPage()
 @Component({
@@ -35,6 +37,7 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private ofAuth: AngularFireAuth,
+              private _FirebaseProvider:AuthserviceProvider,
               // public _facebook:Facebook
               public google_plus: GooglePlus) {
   }
@@ -52,20 +55,17 @@ export class LoginPage {
       console.log(result);
       if (result) {
         this.ofAuth.authState.subscribe(data => {
-          console.log('data login firebase ', data);
           if (data != null) {
             let _user: UserProfile = {
               uid: data.uid,
               email: data.email,
-              name: data.displayName,
-              url_image: data.photoURL
+              name: data.displayName || 'Name pardefaut',
+              url_image: data.photoURL  || 'URL pardefaut'
             };
             console.log('ce user va etre ajouter au loacal ', _user)
+            this._FirebaseProvider.saveUser(_user);
             localStorage.setItem('_currentUser', JSON.stringify(_user));
-            this.navCtrl.setRoot('TodolistPage').then(() => {
-              const index = this.navCtrl.getActive().index;
-              this.navCtrl.remove(0, index);
-            });
+            this.navCtrl.setRoot('TodolistPage');
           }
 
         });

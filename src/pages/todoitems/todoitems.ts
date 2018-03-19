@@ -3,8 +3,7 @@ import {IonicPage, NavController, NavParams, ModalController,Modal,ToastControll
 import {FirebaseserviceProvider} from "../../providers/firebaseservice/firebaseservice";
 import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {TodoItem, TodoList} from "../../Models/Todoliste";
-
+import {TodoList, TodoItem} from "../../Models/Todoliste";
 @IonicPage()
 @Component({
   selector: 'page-todoitems',
@@ -19,7 +18,8 @@ export class TodoitemsPage {
               public alertCtrl: AlertController,
               public toastCtrl: ToastController,
               private _modal: ModalController,
-              public navParams: NavParams, private _Fireservice: FirebaseserviceProvider,
+              public navParams: NavParams,
+              private _Fireservice: FirebaseserviceProvider,
               private _authent: AngularFireAuth) {
   }
 
@@ -103,5 +103,35 @@ export class TodoitemsPage {
     });
     prompt.present();
 
+  }
+
+  ShowEmailShareAlert(liste:TodoList){
+    let prompt = this.alertCtrl.create({
+      title: 'Shared With',
+      message: "Enter a personal email with which you will share this list",
+      inputs: [
+        {
+          name: 'email',
+          placeholder: 'email@email.com'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            this._Fireservice.sahredListByEmail(liste,data.email)
+              .then(_ => this.showToast('middle','List succesfuly sahred'))
+              .catch(err => this.showToast('middle','Something wrong happened'))
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 }

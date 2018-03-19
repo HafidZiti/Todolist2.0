@@ -63,6 +63,12 @@ export class FirebaseserviceProvider {
     return this.db.list('Items/' + _todolist.uuid).remove(_uidItem);
   }
 
+  public sahredListByEmail(liste:TodoList,email:string):Promise<void>{
+    //this.afAuth.u
+    //return this.db.list('SharedWaiting/' + );
+    return null;
+  }
+
 
   /*  public getLists(): Observable<TodoList[]> {
       return this.TodoRef$.valueChanges();
