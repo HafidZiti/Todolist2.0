@@ -4,7 +4,7 @@ export interface TodoList {
   id?: string,
   uuid? : string,
   creation_date?,
-  createdBy?:UserProfile,
+  createdBy?:string,
   name : string,
   desc? :string,
   url_image? : string,

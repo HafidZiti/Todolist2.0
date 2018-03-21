@@ -11,8 +11,14 @@ import {NgxLoremIpsumService} from 'ngx-lorem-ipsum';
 export class FirebaseserviceProvider {
 
   listes: AngularFireList<TodoList> = null;
+  waitingListes: AngularFireList<TodoList> = null;
+  sharedLists: AngularFireList<TodoList> = null;
   items: AngularFireList<TodoItem> = null;
+  users: AngularFireList<UserProfile> = null;
   currUser: UserProfile;
+
+
+  uuidUserToShare:any;
 
   constructor(private db: AngularFireDatabase,
               private  gene_para: NgxLoremIpsumService,
@@ -22,12 +28,37 @@ export class FirebaseserviceProvider {
   private setUserUid() {
     this.currUser = JSON.parse(localStorage.getItem('_currentUser'));
     this.listes = this.db.list('Listes/'.concat(this.currUser.uid));
+    this.waitingListes = this.db.list('WaitingSahredLists/'.concat(this.currUser.uid));
+   this.sharedLists = this.db.list('SharedLists/'.concat(this.currUser.uid));
   }
 
 
   getTodoList(): Observable<TodoList[]> {
     this.setUserUid();
     return this.listes.valueChanges();
+  }
+
+  getWaitingListe(): Observable<TodoList[]> {
+    this.setUserUid();
+    return this.waitingListes.valueChanges();
+  }
+
+  getSharedLists(): Observable<TodoList[]> {
+    this.setUserUid();
+    return this.sharedLists.valueChanges();
+  }
+
+  removeWaitingListe(_liste:TodoList):Promise<void>{
+    this.setUserUid();
+    // return this.waitingSharedList.remove(_liste.uuid);
+    return this.db.list('WaitingSahredLists/'.concat(this.currUser.uid)).remove(_liste.uuid);
+  }
+
+  acceptWaitingListe(_liste:TodoList){
+    this.setUserUid();
+    this.db.list('SharedLists/'.concat(this.currUser.uid)).set(_liste.uuid, _liste);
+    console.log('list encours ', _liste);
+    this.removeWaitingListe(_liste);
   }
 
   insertListe(liste: TodoList) {
@@ -63,10 +94,39 @@ export class FirebaseserviceProvider {
     return this.db.list('Items/' + _todolist.uuid).remove(_uidItem);
   }
 
-  public sahredListByEmail(liste:TodoList,email:string):Promise<void>{
-    //this.afAuth.u
-    //return this.db.list('SharedWaiting/' + );
-    return null;
+  public sahredListByEmail(_liste:TodoList,_email:string){
+    this.getUserUid(_email).then((user:UserProfile)=>{
+      console.log(user);
+       this.db.list('WaitingSahredLists/'.concat(user.uid)).set(_liste.uuid, _liste);
+
+      // localStorage.setItem('uuid', JSON.stringify(this.uuidUserToShare));
+
+    })
+
+    // this.uuidUserToShare = JSON.parse(localStorage.getItem('uuid'));
+     console.log('uid en fin', this.uuidUserToShare);
+
+  }
+
+  private getUserUid(_email: string) {
+    const path = 'Users/';
+    console.log('ptah', path);
+    this.users = this.db.list(path, ref => ref.orderByChild('email').equalTo(_email));
+    return new Promise(resolve => {
+      this.users.valueChanges().subscribe(
+        (data: any) => {
+          data.map((t: UserProfile) => {
+            console.log(t);
+            resolve(t);
+          })
+        })
+    })
+
+
+    //  ref$.snapshotChanges().subscribe(data=>{
+    //    console.log('la taile de la reposne',data)
+    // })
+
   }
 
 

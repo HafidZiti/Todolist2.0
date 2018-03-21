@@ -105,7 +105,7 @@ export class TodoitemsPage {
 
   }
 
-  ShowEmailShareAlert(liste:TodoList){
+  ShowEmailShareAlert(_liste:TodoList){
     let prompt = this.alertCtrl.create({
       title: 'Shared With',
       message: "Enter a personal email with which you will share this list",
@@ -125,9 +125,9 @@ export class TodoitemsPage {
         {
           text: 'Save',
           handler: data => {
-            this._Fireservice.sahredListByEmail(liste,data.email)
-              .then(_ => this.showToast('middle','List succesfuly sahred'))
-              .catch(err => this.showToast('middle','Something wrong happened'))
+            this._Fireservice.sahredListByEmail(_liste,data.email)
+              // .then(_ => this.showToast('middle','List succesfuly sahred'))
+              // .catch(err => this.showToast('middle','Something wrong happened'))
           }
         }
       ]

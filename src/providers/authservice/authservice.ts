@@ -13,7 +13,7 @@ export class AuthserviceProvider {
   }
 
   saveUser(_user: UserProfile) {
-    if (this.checkUserIfArealySaved(_user).length == 0) {
+    if (this.checkUserIfArealySaved(_user) == 0) {
       this.db.list('Users/').set(_user.uid, _user);
     } else console.log('user deja existe');
   }
@@ -25,7 +25,7 @@ export class AuthserviceProvider {
     const ref$ = this.db.list(path, ref => ref.orderByChild('email').equalTo(user.email));
     ref$.valueChanges().subscribe(data => {
       console.log('la taille de l data', data.length);
-      return data;
+      return data.length
       // data.map((t:UserProfile)  => {
       //   console.log('objet returne',t.email);
       // })

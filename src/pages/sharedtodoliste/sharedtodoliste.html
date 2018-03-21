@@ -1,4 +1,3 @@
-
 <ion-header>
 
   <ion-navbar color="secondary">
@@ -6,16 +5,84 @@
     <button ion-button="" menuToggle="">
       <ion-icon name="menu"></ion-icon>
     </button>
+
+    <ion-buttons end>
+      <button color="light" (click)="logoutUser()">
+        <ion-icon name="ios-notifications-outline"></ion-icon><span style="color: red;">{{(waitList | async)?.length}}</span>
+      </button>
+    </ion-buttons>
+
     <ion-buttons end>
     <button ion-button="" color="light" (click)="logoutUser()">
       <ion-icon name="log-out"></ion-icon>
     </button>
-    </ion-buttons>
+  </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-mes liste partagés
+
+  <ion-list>
+    <ion-list-header>
+    Lists Waiting For your Action
+    </ion-list-header>
+    <ion-item-sliding  *ngFor="let liste of (waitList | async)">
+      <ion-item>
+
+        <ion-avatar item-start>
+          <img src="assets/imgs/todolistLogo.png" >
+        </ion-avatar>
+
+        <h2 >{{liste.name}}</h2>
+        <!--<h3>By : {{Liste.creator || 'Default Name'}}</h3>-->
+        <h3>By : Default Name</h3>
+        <p >{{liste.desc}}</p>
+
+        <ion-note item-end>6h Ago</ion-note>
+
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="danger" icon-start (click)="ActionWaitingList(0,liste)">
+          <ion-icon name="ios-close-circle-outline"></ion-icon>
+          Refuse
+        </button>
+        <button ion-button icon-start (click)="ActionWaitingList(1,liste)">
+          <ion-icon name="ios-checkmark-circle-outline"></ion-icon>
+          Accepte
+        </button>
+      </ion-item-options>
+
+      <ion-item-options side="left">
+        <button ion-button color="primary"> Unread</button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+
+
+
+
+    <ion-list-header>
+      Accepted Lists
+    </ion-list-header>
+    <ion-item-sliding  *ngFor="let list of (acceptedList | async)">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="assets/imgs/todolistLogo.png" >
+        </ion-avatar>
+        <h2 >{{list.name}}</h2>
+        <!--<h3>By : {{Liste.createdBy || 'Default Name'}}</h3>-->
+        <h3>By : Default Name</h3>
+        <p >{{list.desc}}</p>
+        <ion-note item-end>6h Ago</ion-note>
+      </ion-item>
+      <ion-item-options side="left">
+        <button ion-button color="primary"> Remove </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list>
+
+
 </ion-content>
