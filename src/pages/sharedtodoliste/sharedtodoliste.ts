@@ -3,7 +3,9 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Observable} from "rxjs/Observable";
 import {TodoList} from "../../Models/Todoliste";
-import {FirebaseserviceProvider} from "../../providers/firebaseservice/firebaseservice"
+import {FirebaseserviceProvider} from "../../providers/firebaseservice/firebaseservice";
+import { BarcodeScanner,BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
+
 
 
 @IonicPage()
@@ -17,8 +19,12 @@ export class SharedtodolistePage {
   acceptedList: Observable<TodoList[]> = null;
   size_data;
 
+  qrdata={ };
+  encodemyData:string = 'hello';
+  option:BarcodeScannerOptions ;
 
   constructor(public navCtrl: NavController,
+              public barcodeScanner:BarcodeScanner,
               public navParams: NavParams,
               private _Fireservice: FirebaseserviceProvider,
               private afAuth: AngularFireAuth) {
@@ -37,6 +43,23 @@ export class SharedtodolistePage {
     this.acceptedList = this._Fireservice.getSharedLists();
   }
 
+  scanQRcode() {
+    this.option = {
+      prompt: "Please scan Liste"
+    }
+
+    this.barcodeScanner.scan(this.option).then((encodeData) => {
+      // Success! Barcode data is here
+      console.log(encodeData);
+      this.qrdata = encodeData;
+      this._Fireservice.sahredListByQRcode(encodeData.text);
+
+    }, (err) => {
+      // An error occurred
+      console.log(err);
+    });
+  }
+
   ActionWaitingList(type, _list: TodoList) {
     if (type == 0) {
       this._Fireservice.removeWaitingListe(_list);
@@ -45,6 +68,11 @@ export class SharedtodolistePage {
     }
 
   }
+
+  removeList(list:TodoList){
+    this._Fireservice.removeSharedList(list);
+  }
+
 
   logoutUser() {
     this.afAuth.auth.signOut().then()

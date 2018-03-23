@@ -63,7 +63,7 @@ export class TodolistPage {
            const index = this.navCtrl.getActive().index;
            console.log('on arrivé a ', index);
           // this.navCtrl.remove(0, this.navCtrl.length());
-         });;
+         });
       })
   }
 }

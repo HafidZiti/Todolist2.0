@@ -4,6 +4,8 @@ import {FirebaseserviceProvider} from "../../providers/firebaseservice/firebases
 import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {TodoList, TodoItem} from "../../Models/Todoliste";
+import { BarcodeScanner,BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
+
 @IonicPage()
 @Component({
   selector: 'page-todoitems',
@@ -11,10 +13,12 @@ import {TodoList, TodoItem} from "../../Models/Todoliste";
 })
 export class TodoitemsPage {
 
+
   itemsListe: Observable<TodoItem[]> = null;
   _currentListe:TodoList ;
 
   constructor(public navCtrl: NavController,
+              public barcodeScanner:BarcodeScanner,
               public alertCtrl: AlertController,
               public toastCtrl: ToastController,
               private _modal: ModalController,
@@ -33,6 +37,20 @@ export class TodoitemsPage {
     this.itemsListe = this._Fireservice.getItemsList(this._currentListe.uuid);
     console.log("liste", this.itemsListe);
 
+  }
+
+
+  generateQRcode(_list: TodoList) {
+    let currentUserUid = this._Fireservice.getUidCurrentUser();
+    let uidUserList = currentUserUid.concat('/').concat(_list.uuid);
+     console.log("uid Combinés", uidUserList);
+    this.barcodeScanner.encode(this.barcodeScanner.Encode.TEXT_TYPE, uidUserList).then((res) => {
+     console.log(res)
+      //this.encodedData = res;
+    }, (err) => {
+      // An error occurred
+      console.log(err);
+    })
   }
 
   private openTodoItemModal() {

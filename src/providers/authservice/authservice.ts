@@ -24,6 +24,7 @@ export class AuthserviceProvider {
     console.log('ptah', path);
     const ref$ = this.db.list(path, ref => ref.orderByChild('email').equalTo(user.email));
     ref$.valueChanges().subscribe(data => {
+      //return ref$.valueChanges().map( users => (users as UserProfile[]));
       console.log('la taille de l data', data.length);
       return data.length
       // data.map((t:UserProfile)  => {

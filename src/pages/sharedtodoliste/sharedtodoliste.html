@@ -7,7 +7,7 @@
     </button>
 
     <ion-buttons end>
-      <button color="light" (click)="logoutUser()">
+      <button color="light">
         <ion-icon name="ios-notifications-outline"></ion-icon><span style="color: red;">{{(waitList | async)?.length}}</span>
       </button>
     </ion-buttons>
@@ -40,7 +40,8 @@
         <h3>By : Default Name</h3>
         <p >{{liste.desc}}</p>
 
-        <ion-note item-end>6h Ago</ion-note>
+        <!--<ion-note item-end>{{liste.creation_date | timeAgo}}</ion-note>-->
+        <!--<ion-note item-end>6h Ago</ion-note>-->
 
       </ion-item>
       <ion-item-options side="right">
@@ -75,14 +76,20 @@
         <!--<h3>By : {{Liste.createdBy || 'Default Name'}}</h3>-->
         <h3>By : Default Name</h3>
         <p >{{list.desc}}</p>
-        <ion-note item-end>6h Ago</ion-note>
+        <!--<ion-note item-end>{{list.creation_date | timeAgo}}</ion-note>-->
       </ion-item>
       <ion-item-options side="left">
-        <button ion-button color="primary"> Remove </button>
+        <button ion-button color="danger" (click)="removeList(list)"><ion-icon name="md-trash"></ion-icon> Remove </button>
       </ion-item-options>
     </ion-item-sliding>
 
   </ion-list>
+
+  <ion-fab class="fixed-div">
+    <button ion-fab fab-left fab-bottom (click)="scanQRcode()" style="background-color:#00c615;">
+      <ion-icon name="md-qr-scanner"></ion-icon>
+    </button>
+  </ion-fab>
 
 
 </ion-content>

@@ -23,7 +23,7 @@ export class MyApp {
 
   ];
 
-      //_CurrentUser:UserProfile;
+      //  _CurrentUser:UserProfile;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
       // this._CurrentUser = JSON.parse(localStorage.getItem('_currentUser'));

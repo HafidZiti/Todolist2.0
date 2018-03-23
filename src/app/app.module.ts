@@ -1,29 +1,33 @@
-import { NgModule, ErrorHandler } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import {NgModule, ErrorHandler} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
+import {MyApp} from './app.component';
+import {StatusBar} from '@ionic-native/status-bar';
+import {SplashScreen} from '@ionic-native/splash-screen';
 
 
 import {GooglePlus} from "@ionic-native/google-plus";
 import {AngularFireModule} from "angularfire2";
-import{AngularFireAuthModule} from 'angularfire2/auth';
-import{AngularFireDatabaseModule} from 'angularfire2/database';
+import {AngularFireAuthModule} from 'angularfire2/auth';
+import {AngularFireDatabaseModule} from 'angularfire2/database';
 import firebase from 'firebase';
 import {LoginPageModule} from "../pages/login/login.module";
 
 import {LoginPage} from "../pages/login/login";
-import { FirebaseserviceProvider } from '../providers/firebaseservice/firebaseservice';
+import {FirebaseserviceProvider} from '../providers/firebaseservice/firebaseservice';
 
-import { NgxLoremIpsumModule } from 'ngx-lorem-ipsum';
-import { AuthserviceProvider } from '../providers/authservice/authservice';
+import {NgxLoremIpsumModule} from 'ngx-lorem-ipsum';
+import {AuthserviceProvider} from '../providers/authservice/authservice';
 import {AboutPage} from "../pages/about/about";
 import {TodolistPage} from "../pages/todolist/todolist";
 import {SharedtodolistePage} from "../pages/sharedtodoliste/sharedtodoliste";
 import {TodoitemsPageModule} from "../pages/todoitems/todoitems.module";
 import {TodolistPageModule} from "../pages/todolist/todolist.module";
 //import {SharedtodolistePageModule} from "../pages/sharedtodoliste/sharedtodoliste.module";
+import {SharedtodolistePageModule} from "../pages/sharedtodoliste/sharedtodoliste.module";
+
+import {TimeAgoPipe} from 'time-ago-pipe';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 export const Firebaseconfig = {
   apiKey: "AIzaSyAn8rqs5ppwHvMmkXClmykymGEgJg4CRXQ",
@@ -34,14 +38,15 @@ export const Firebaseconfig = {
   messagingSenderId: "387359062142"
 }
 
-  firebase.initializeApp(Firebaseconfig)
+firebase.initializeApp(Firebaseconfig)
 
 @NgModule({
   declarations: [
     MyApp,
     AboutPage,
-    SharedtodolistePage,
     //TodolistPage,
+    SharedtodolistePage,
+    //TimeAgoPipe
   ],
   imports: [
     BrowserModule,
@@ -51,9 +56,9 @@ export const Firebaseconfig = {
     LoginPageModule,
     AngularFireDatabaseModule,
     NgxLoremIpsumModule,
-    TodoitemsPageModule,
+    //TodoitemsPageModule,
     TodolistPageModule,
-    //SharedtodolistePageModule,
+   //SharedtodolistePageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -69,7 +74,9 @@ export const Firebaseconfig = {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GooglePlus,
     FirebaseserviceProvider,
-    AuthserviceProvider
+    AuthserviceProvider,
+    BarcodeScanner
   ]
 })
-export class AppModule {}
+export class AppModule {
+}

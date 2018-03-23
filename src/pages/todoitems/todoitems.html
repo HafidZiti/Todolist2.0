@@ -7,8 +7,6 @@
 
 
 <ion-content padding>
-
-
   <ion-card>
 
     <img src="assets/imgs/todolistLogo.png"/>
@@ -35,7 +33,7 @@
         <ion-fab center middle>
           <button ion-fab mini color="danger" class="btn-more"><ion-icon name="share-alt"></ion-icon></button>
           <ion-fab-list side="left">
-            <button ion-fab color="primary"><ion-icon name="md-qr-scanner"></ion-icon></button>
+            <button ion-fab color="primary" (click)="generateQRcode(_currentListe)"><ion-icon name="md-qr-scanner"></ion-icon></button>
           </ion-fab-list>
           <ion-fab-list side="right">
             <button ion-fab color="secondary" (click)="ShowEmailShareAlert(_currentListe)"><ion-icon name="ios-mail"></ion-icon></button>
@@ -52,7 +50,6 @@
     </ion-row>
 
   </ion-card>
-
 
   <ion-list>
     <ion-item-sliding *ngFor="let item of (itemsListe | async)">

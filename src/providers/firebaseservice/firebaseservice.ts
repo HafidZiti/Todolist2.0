@@ -32,6 +32,11 @@ export class FirebaseserviceProvider {
    this.sharedLists = this.db.list('SharedLists/'.concat(this.currUser.uid));
   }
 
+  getUidCurrentUser():string{
+    this.currUser = JSON.parse(localStorage.getItem('_currentUser'));
+    return this.currUser.uid;
+  }
+
 
   getTodoList(): Observable<TodoList[]> {
     this.setUserUid();
@@ -54,11 +59,17 @@ export class FirebaseserviceProvider {
     return this.db.list('WaitingSahredLists/'.concat(this.currUser.uid)).remove(_liste.uuid);
   }
 
+
   acceptWaitingListe(_liste:TodoList){
     this.setUserUid();
     this.db.list('SharedLists/'.concat(this.currUser.uid)).set(_liste.uuid, _liste);
     console.log('list encours ', _liste);
     this.removeWaitingListe(_liste);
+  }
+
+  removeSharedList(_liste:TodoList):Promise<void>{
+    this.setUserUid();
+    return this.db.list('SharedLists/'.concat(this.currUser.uid)).remove(_liste.uuid);
   }
 
   insertListe(liste: TodoList) {
@@ -102,10 +113,38 @@ export class FirebaseserviceProvider {
       // localStorage.setItem('uuid', JSON.stringify(this.uuidUserToShare));
 
     })
-
     // this.uuidUserToShare = JSON.parse(localStorage.getItem('uuid'));
      console.log('uid en fin', this.uuidUserToShare);
 
+  }
+
+  getListByuid(uidUser:string ,uidList:string)
+  {
+    const path = 'Listes/'.concat(uidUser);
+    console.log('ptah', path);
+    let lists = this.db.list(path, ref => ref.orderByChild('uuid').equalTo(uidList));
+    return new Promise(resolve => {
+      lists.valueChanges().subscribe(
+        (data: any) => {
+          data.map((l: UserProfile) => {
+            console.log(l);
+            resolve(l);
+          })
+        })
+    })
+  }
+
+  public sahredListByQRcode(uidUserList: string) {
+    let splitted = uidUserList.split("/", 2);
+    let uidUser = splitted[0];
+    let uidList = splitted[1];
+    console.log("userUid", uidUser);
+    console.log("userList", uidList);
+    this.getListByuid(uidUser, uidList).then((list: TodoList) => {
+      console.log(list);
+      this.db.list('SharedLists/'.concat(this.getUidCurrentUser())).set(list.uuid, list);
+      // localStorage.setItem('uuid', JSON.stringify(this.uuidUserToShare));
+    })
   }
 
   private getUserUid(_email: string) {
