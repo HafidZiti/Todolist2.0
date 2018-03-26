@@ -24,7 +24,7 @@
     <ion-item  *ngFor="let liste of (listes01 | async)">
 
       <ion-avatar item-start>
-        <img src="assets/imgs/todolistLogo.png" (click)="onloadItemsPage(liste)">
+        <img src="{{liste.url_image}}" (click)="onloadItemsPage(liste)">
       </ion-avatar>
 
       <h2 (click)="onloadItemsPage(liste)">{{liste.name}}</h2>

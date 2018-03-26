@@ -22,6 +22,7 @@ import {copy} from "@ionic/app-scripts";
   selector: 'page-login',
   templateUrl: 'login.html',
 })
+
 export class LoginPage {
   user = {} as User;
 

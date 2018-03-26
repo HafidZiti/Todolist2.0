@@ -28,6 +28,9 @@ import {SharedtodolistePageModule} from "../pages/sharedtodoliste/sharedtodolist
 
 import {TimeAgoPipe} from 'time-ago-pipe';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Camera } from '@ionic-native/camera';
+import { ImagefirebaseProvider } from '../providers/imagefirebase/imagefirebase';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 export const Firebaseconfig = {
   apiKey: "AIzaSyAn8rqs5ppwHvMmkXClmykymGEgJg4CRXQ",
@@ -58,6 +61,7 @@ firebase.initializeApp(Firebaseconfig)
     NgxLoremIpsumModule,
     //TodoitemsPageModule,
     TodolistPageModule,
+    HttpClientModule,
    //SharedtodolistePageModule,
   ],
   bootstrap: [IonicApp],
@@ -75,7 +79,9 @@ firebase.initializeApp(Firebaseconfig)
     GooglePlus,
     FirebaseserviceProvider,
     AuthserviceProvider,
-    BarcodeScanner
+    BarcodeScanner,
+    Camera,
+    ImagefirebaseProvider
   ]
 })
 export class AppModule {

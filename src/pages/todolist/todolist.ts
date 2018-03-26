@@ -5,6 +5,8 @@ import {FirebaseserviceProvider} from "../../providers/firebaseservice/firebases
 import {AngularFireDatabase, AngularFireList, AngularFireObject} from 'angularfire2/database';
 import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
+import {ImagefirebaseProvider} from "../../providers/imagefirebase/imagefirebase";
+
 
 
 import {UserProfile} from "../../Models/Todoliste";
@@ -25,6 +27,7 @@ export class TodolistPage {
               private _modal: ModalController,
               private _Fireservice: FirebaseserviceProvider,
               private afAuth: AngularFireAuth,
+              private imagefirebase:ImagefirebaseProvider,
               private db: AngularFireDatabase) {
   }
 
@@ -46,12 +49,21 @@ export class TodolistPage {
     myModal.onDidDismiss((data => {
       console.log('OKK', data);
       if (data != null) {
-        let _todolist: TodoList = {name: data.name, desc: data.desc}
-        this._Fireservice.insertListe(_todolist);
+        console.log('data recuprer',data);
+        if (data.imageBase64){
+          let UploadTask = this.imagefirebase.uploadImage(data.imageBase64);
+          UploadTask.then(PictureSaved=>{
+            console.log('url image ',PictureSaved.downloadURL);
+            let _todolist: TodoList = {name: data.liste.name, desc: data.liste.desc,url_image:PictureSaved.downloadURL}
+            this._Fireservice.insertListe(_todolist);
+          })
+        }else {
+          let _todolist: TodoList = {name: data.liste.name, desc: data.liste.desc,url_image:null}
+          this._Fireservice.insertListe(_todolist);
+        }
       }
     }));
   }
-
 
   logoutUser() {
     this.afAuth.auth.signOut().then()
