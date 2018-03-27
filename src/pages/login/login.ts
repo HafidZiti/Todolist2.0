@@ -38,7 +38,7 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private ofAuth: AngularFireAuth,
-              private _FirebaseProvider:AuthserviceProvider,
+              private _FirebaseProvider: AuthserviceProvider,
               // public _facebook:Facebook
               public google_plus: GooglePlus) {
   }
@@ -46,8 +46,8 @@ export class LoginPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
     console.log("popAll");
-
-
+    if (JSON.parse(localStorage.getItem('_currentUser')) != null)
+      this.navCtrl.setRoot('TodolistPage');
   }
 
   login(user: User) {
@@ -61,14 +61,13 @@ export class LoginPage {
               uid: data.uid,
               email: data.email,
               name: data.displayName || 'Name pardefaut',
-              url_image: data.photoURL  || 'URL pardefaut'
+              url_image: data.photoURL || 'URL pardefaut'
             };
             console.log('ce user va etre ajouter au loacal ', _user)
             this._FirebaseProvider.saveUser(_user);
             localStorage.setItem('_currentUser', JSON.stringify(_user));
             this.navCtrl.setRoot('TodolistPage');
           }
-
         });
       }
     } catch (e) {
@@ -94,5 +93,4 @@ export class LoginPage {
       })
     })
   }
-
 }

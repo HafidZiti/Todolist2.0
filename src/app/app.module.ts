@@ -31,6 +31,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 import { ImagefirebaseProvider } from '../providers/imagefirebase/imagefirebase';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { AdMobFree } from '@ionic-native/admob-free';
 
 export const Firebaseconfig = {
   apiKey: "AIzaSyAn8rqs5ppwHvMmkXClmykymGEgJg4CRXQ",
@@ -81,6 +82,7 @@ firebase.initializeApp(Firebaseconfig)
     AuthserviceProvider,
     BarcodeScanner,
     Camera,
+    AdMobFree,
     ImagefirebaseProvider
   ]
 })

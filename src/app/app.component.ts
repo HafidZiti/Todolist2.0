@@ -13,7 +13,9 @@ import {UserProfile} from "../Models/Todoliste";
   templateUrl: 'app.html'
 })
 export class MyApp {
+
   rootPage:any = LoginPage;
+
 
   menu=[
     // {title:'Accueil',component:AccueilPage},
