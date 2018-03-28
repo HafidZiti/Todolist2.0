@@ -37,7 +37,7 @@ export class TodolistPage {
   }
 
   ionViewDidLoad() {
-    if (this.platform.is('cordova')) {
+    if (this.platform.is('cordova') && JSON.parse(localStorage.getItem('ads')) == 1) {
       this.showBannerAd();
       // this.showInterstitialAd()
       // this.showVideoRewardsAd()
@@ -48,7 +48,7 @@ export class TodolistPage {
     try {
       const bannerConfig: AdMobFreeBannerConfig = {
         id: 'ca-app-pub-1716950648369531/6026722385',
-        isTesting: false,
+        isTesting: true,
         autoShow: true
       }
 

@@ -1,38 +1,45 @@
-<ion-content  text-center>
+<ion-content text-center>
 
 
-    <div class="bg">
-      <div class="head" text-center *ngIf="inputsClicked">
-        <h1>TODO-LIST</h1>
-        <h5>M2PGI-2018</h5>
-      <!--<img src="assets/imgs/todolistLogo.png" class="logo-login" >-->
-      </div>
-      <div class="inputs">
-        <ion-item>
-          <ion-label fixed>Email</ion-label>
-          <ion-input type="text" [(ngModel)]="user.email"></ion-input>
-        </ion-item>
-        <ion-item class="pass">
-          <ion-label fixed>Password</ion-label>
-          <ion-input type="password" [(ngModel)]="user.password" ></ion-input>
-        </ion-item>
-        <button ion-button block (click)="login(user)"><b>Login</b></button>
+  <div class="bg">
+    <!--<div class="head" text-center *ngIf="inputsClicked">-->
+    <!--<h1>TODO-LIST</h1>-->
+    <!--<h5>M2PGI-2018</h5>-->
+    <!--&lt;!&ndash;<img src="assets/imgs/todolistLogo.png" class="logo-login" >&ndash;&gt;-->
+    <!--</div>-->
 
-        <p>Or create new account <span (click)="register()"> <strong class="lien">Here</strong></span></p>
-
-
-        <button ion-button icon-left (click)="loginGoogle()" block outline class="btn-gmail">
-          <ion-icon name="logo-googleplus"></ion-icon>
-          LOGIN WITH GOOGLE +
-        </button>
-
-        <button ion-button icon-left (click)="loginFacebook()" block outline class="btn-face">
-          <ion-icon name="logo-facebook"></ion-icon>
-          LOGIN WITH FACEBOOK
-        </button>
-
-      </div>
+    <div [ngClass]="(ads_action==1)?'with-ads':'no-ads'"
+         (click)="ads_function()">
+      <div class="line2"></div>
+      <ion-icon name="md-megaphone" class="ads-icon"></ion-icon>
     </div>
+
+    <div class="inputs">
+      <ion-item>
+        <ion-label fixed>Email</ion-label>
+        <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+      </ion-item>
+      <ion-item class="pass">
+        <ion-label fixed>Password</ion-label>
+        <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+      </ion-item>
+      <button ion-button block (click)="login(user)"><b>Login</b></button>
+
+      <p>Or create new account <span (click)="register()"> <strong class="lien">Here</strong></span></p>
+
+
+      <button ion-button icon-left (click)="loginGoogle()" block outline class="btn-gmail">
+        <ion-icon name="logo-googleplus"></ion-icon>
+        LOGIN WITH GOOGLE +
+      </button>
+
+      <button ion-button icon-left (click)="loginFacebook()" block outline class="btn-face">
+        <ion-icon name="logo-facebook"></ion-icon>
+        LOGIN WITH FACEBOOK
+      </button>
+
+    </div>
+  </div>
 
 
   <!--<div class="back">

@@ -15,8 +15,9 @@
 <ion-content padding>
   <div class="action-sheets-basic-page">
     <button ion-button block (click)="openOption()">
-      Associate a Pictures
+      Associate a Pictures  &nbsp; <ion-icon name="ios-camera"></ion-icon>
     </button>
+
   </div>
 
   <img [src]="this.datatoSend.imageBase64" *ngIf="this.datatoSend.imageBase64" width="500px" height="300px">

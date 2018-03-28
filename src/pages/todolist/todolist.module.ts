@@ -9,6 +9,7 @@ import {TimeAgoPipe} from 'time-ago-pipe';
   declarations: [
     TodolistPage,
     TimeAgoPipe
+
   ],
   imports: [
     IonicPageModule.forChild(TodolistPage),

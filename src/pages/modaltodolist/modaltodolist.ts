@@ -59,20 +59,21 @@ export class ModaltodolistPage {
       cssClass: 'action-sheets-basic-page',
       buttons: [
         {
-          text: 'Photo album',
-          //  role: 'destructive',
-          icon: !this.platform.is('ios') ? 'trash' : null,
-          handler: () => {
-            console.log('Delete clicked');
-            this.selectPrictFromAlbum();
-          }
-        },
-        {
           text: 'Take new Picture',
-          icon: !this.platform.is('ios') ? 'share' : null,
+          icon: !this.platform.is('ios') ? 'ios-camera-outline' : null,
           handler: () => {
             console.log('Share clicked');
             this.takeNewPict();
+          }
+        },
+
+        {
+          text: 'Photo album',
+          //  role: 'destructive',
+          icon: !this.platform.is('ios') ? 'ios-albums-outline' : null,
+          handler: () => {
+            console.log('Delete clicked');
+            this.selectPrictFromAlbum();
           }
         },
         {

@@ -26,6 +26,8 @@ import {copy} from "@ionic/app-scripts";
 export class LoginPage {
   user = {} as User;
 
+  ads_action = 1;
+
   provider = {
     loggedin: '',
     uid: '',
@@ -50,6 +52,11 @@ export class LoginPage {
       this.navCtrl.setRoot('TodolistPage');
   }
 
+  ads_function(){
+    if(this.ads_action == 1) this.ads_action = 0
+    else if (this.ads_action == 0) this.ads_action = 1;
+  }
+
   login(user: User) {
     try {
       const result = this.ofAuth.auth.signInWithEmailAndPassword(user.email, user.password);
@@ -66,6 +73,7 @@ export class LoginPage {
             console.log('ce user va etre ajouter au loacal ', _user)
             this._FirebaseProvider.saveUser(_user);
             localStorage.setItem('_currentUser', JSON.stringify(_user));
+            localStorage.setItem('ads', JSON.stringify(this.ads_action));
             this.navCtrl.setRoot('TodolistPage');
           }
         });
