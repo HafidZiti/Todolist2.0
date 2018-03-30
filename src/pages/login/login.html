@@ -8,11 +8,16 @@
     <!--&lt;!&ndash;<img src="assets/imgs/todolistLogo.png" class="logo-login" >&ndash;&gt;-->
     <!--</div>-->
 
-    <div [ngClass]="(ads_action==1)?'with-ads':'no-ads'"
-         (click)="ads_function()">
-      <div class="line2"></div>
-      <ion-icon name="md-megaphone" class="ads-icon"></ion-icon>
+    <!--[ngClass]="(ads_action==1)?'with-ads':'no-ads'"-->
+    <div (click)="ads_function()" class="ads">
+      <img src="assets/imgs/noAds.JPG" *ngIf="ads_action==0">
+      <img src="assets/imgs/withads.JPG" *ngIf="ads_action==1">
+
+      <!--<div class="line2"></div>-->
+      <!--<ion-icon name="md-megaphone" class="ads-icon"></ion-icon>-->
     </div>
+
+
 
     <div class="inputs">
       <ion-item>

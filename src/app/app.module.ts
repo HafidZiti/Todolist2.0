@@ -39,7 +39,7 @@ firebase.initializeApp(Firebaseconfig)
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
+    //AboutPage,
    // TodolistPage,
     //SharedtodolistePage
   ],
@@ -54,14 +54,14 @@ firebase.initializeApp(Firebaseconfig)
     HttpClientModule,
     TodoitemsPageModule,
     TodolistPageModule,
-   // AboutPageModule,
+   AboutPageModule,
     SharedtodolistePageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     LoginPage,
-    AboutPage
+   // AboutPage
   ],
   providers: [
     StatusBar,
