@@ -153,8 +153,22 @@ export class TodolistPage {
     myModal.onDidDismiss((data => {
       console.log('OKK', data);
       if (data != null) {
-        let edited_list : TodoList = {uuid: data.uuid, name: data.name, desc: data.desc, url_image: data.url_image};
-        this._Fireservice.updateList(edited_list);
+        if (data.url_image_base64) {
+          let UploadTask = this.imagefirebase.uploadImage(data.url_image_base64);
+          UploadTask.then(PictureSaved => {
+            console.log('url image ', PictureSaved.downloadURL);
+            let edited_list: TodoList = {
+              uuid: data.uuid,
+              name: data.name,
+              desc: data.desc,
+              url_image: PictureSaved.downloadURL
+            }
+            this._Fireservice.updateList(edited_list);
+          })
+        } else {
+          let edited_list : TodoList = {uuid: data.uuid, name: data.name, desc: data.desc, url_image: data.url_image};
+          this._Fireservice.updateList(edited_list);
+        }
         //this.serviceliste.editTodo(id_liste, edit_item);
       }
     }));

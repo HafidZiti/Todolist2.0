@@ -14,10 +14,8 @@
 
 <ion-content padding>
 
-
-
   <!--TO Add a New List -->
-  <div *ngIf="toEdit == flase" >
+  <div *ngIf="toEdit == false" >
 
     <div class="action-sheets-basic-page">
       <button ion-button block (click)="openOption()">
@@ -27,7 +25,7 @@
 
     </div>
 
-    <img [src]="this.datatoSend.imageBase64" *ngIf="this.datatoSend.imageBase64" width="500px" height="300px">
+    <img [src]="this.datatoSend.imageBase64" *ngIf="this.datatoSend.imageBase64">
 
     <form (ngSubmit)="chargeData(todolist)">
       <br>
@@ -66,7 +64,7 @@
 
     </div>
 
-    <img [src]="recieve_data.url_image" *ngIf="recieve_data.url_image" width="500px" height="300px">
+    <img [src]="recieve_data.url_image" *ngIf="recieve_data.url_image">
 
     <form (ngSubmit)="chargeData()">
       <br>

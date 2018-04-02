@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {IonicPage, ViewController, NavParams,Platform, ActionSheetController} from 'ionic-angular';
+import {IonicPage, ViewController, NavParams, Platform, ActionSheetController} from 'ionic-angular';
 import {TodoList} from "../../Models/Todoliste";
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import {Camera, CameraOptions} from '@ionic-native/camera';
 
 /**
  * Generated class for the ModaltodolistPage page.
@@ -9,7 +9,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-export interface  dataToSend {
+export interface dataToSend {
   liste: TodoList,
   imageBase64
 }
@@ -23,7 +23,7 @@ export interface  dataToSend {
 
 export class ModaltodolistPage {
   todolist = {} as TodoList;
-  toEdit : Boolean = false;
+  toEdit: Boolean = false;
   recieve_data;
 
   datatoSend = {} as dataToSend;
@@ -42,13 +42,13 @@ export class ModaltodolistPage {
   ionViewWillLoad() {
     let data = this.navParams.get('dataName');
 
-    if (data){
+    if (data) {
       this.toEdit = true;
       this.recieve_data = data;
     }
   }
 
-  chargeData(_list:TodoList) {
+  chargeData(_list: TodoList) {
     console.log("data a envoyer", _list);
     this.datatoSend.liste = _list;
     console.log("data a envoyer", this.datatoSend);
@@ -63,7 +63,7 @@ export class ModaltodolistPage {
   }
 
 
-  openOption(){
+  openOption() {
     let actionSheet = this.actionsheetCtrl.create({
       title: 'Source',
       cssClass: 'action-sheets-basic-page',
@@ -100,37 +100,51 @@ export class ModaltodolistPage {
   }
 
 
-  takeNewPict(){
+  takeNewPict() {
     const options: CameraOptions = {
       quality: 70,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      correctOrientation:true
+      correctOrientation: true
     }
 
     this.camera.getPicture(options).then((imageData) => {
       let base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.datatoSend.imageBase64 = base64Image;
+
+      if (!this.toEdit)
+        this.datatoSend.imageBase64 = base64Image;
+      else {
+        this.recieve_data.url_image = base64Image;
+        this.recieve_data.url_image_base64 = base64Image;
+      }
+
     }, (err) => {
       console.log('Error when photo takes', err)
     });
 
   }
 
-  selectPrictFromAlbum(){
+  selectPrictFromAlbum() {
     const options: CameraOptions = {
       quality: 50,
       destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      correctOrientation:true
+      correctOrientation: true
     }
 
     this.camera.getPicture(options).then((imageData) => {
       let base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.datatoSend.imageBase64 = base64Image;
+
+      if (!this.toEdit)
+        this.datatoSend.imageBase64 = base64Image;
+      else {
+        this.recieve_data.url_image = base64Image;
+        this.recieve_data.url_image_base64 = base64Image;
+      }
+
     }, (err) => {
       console.log('Error when photo was selected', err)
     });
