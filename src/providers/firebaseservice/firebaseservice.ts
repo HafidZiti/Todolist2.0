@@ -37,6 +37,11 @@ export class FirebaseserviceProvider {
     return this.currUser.uid;
   }
 
+  getCurrentUser(){
+    this.currUser = JSON.parse(localStorage.getItem('_currentUser'));
+    return this.currUser;
+  }
+
 
   getTodoList(): Observable<TodoList[]> {
     this.setUserUid();
@@ -78,6 +83,7 @@ export class FirebaseserviceProvider {
     liste.desc = this.gene_para.get(1, 0);
     liste.uuid = listRef$.key;
     liste.creation_date = Date.now();
+    liste.createdBy = this.getCurrentUser().name;
     listRef$.set(liste);
   }
 

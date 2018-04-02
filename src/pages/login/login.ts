@@ -78,7 +78,7 @@ export class LoginPage {
             let _user: UserProfile = {
               uid: data.uid,
               email: data.email,
-              name: data.displayName || 'Name pardefaut',
+              name: data.displayName || data.email,
               url_image: data.photoURL || 'URL pardefaut'
             };
             console.log('ce user va etre ajouter au loacal ', _user)
@@ -110,7 +110,7 @@ export class LoginPage {
               let _user: UserProfile = {
                 uid: data.uid,
                 email: data.email,
-                name: data.displayName || 'Name pardefaut',
+                name: data.displayName || data.email,
                 url_image: data.photoURL || 'URL pardefaut'
               };
               console.log('ce user va etre ajouter au loacal ', _user)
