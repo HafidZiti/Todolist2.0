@@ -28,7 +28,7 @@
       </ion-avatar>
 
       <h2 (click)="onloadItemsPage(liste)">{{liste.name}}</h2>
-      <p (click)="onloadItemsPage(liste)">{{liste.desc}}</p>
+      <p (click)="onloadItemsPage(liste)">{{liste.desc | slice:0:28}}...</p>
 
 
       <ion-fab right top >
