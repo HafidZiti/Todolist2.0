@@ -101,8 +101,21 @@ export class LoginPage {
     }).then(res => {
       firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
         .then(suss => {
-          alert('bien connecté ');
-          this.navCtrl.setRoot('TodolistPage');
+          this.ofAuth.authState.subscribe(data => {
+            if (data != null) {
+              let _user: UserProfile = {
+                uid: data.uid,
+                email: data.email,
+                name: data.displayName || 'Name pardefaut',
+                url_image: data.photoURL || 'URL pardefaut'
+              };
+              console.log('ce user va etre ajouter au loacal ', _user)
+              this._FirebaseProvider.saveUser(_user);
+              localStorage.setItem('_currentUser', JSON.stringify(_user));
+              localStorage.setItem('ads', JSON.stringify(this.ads_action));
+              this.navCtrl.setRoot('TodolistPage');
+            }
+          });
         }).catch(err => {
         alert('non connecté');
       })
