@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController, NavParams,Platform} from 'ionic-angular';
 import {User} from '../../models/user';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
@@ -43,6 +43,7 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
+              private platform:Platform,
               private adMobFree: AdMobFree,
               private ofAuth: AngularFireAuth,
               private _FirebaseProvider: AuthserviceProvider,
@@ -53,7 +54,10 @@ export class LoginPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
     console.log("popAll");
-    this.adMobFree.banner.remove();
+
+    if (this.platform.is('cordova') ) {
+      this.adMobFree.banner.remove();
+    }
 
     if (JSON.parse(localStorage.getItem('_currentUser')) != null)
       this.navCtrl.setRoot('TodolistPage');

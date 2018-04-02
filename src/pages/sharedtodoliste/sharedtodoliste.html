@@ -6,17 +6,21 @@
       <ion-icon name="menu"></ion-icon>
     </button>
 
-    <ion-buttons end>
-      <button color="light">
-        <ion-icon name="ios-notifications-outline"></ion-icon><span style="color: red;">{{(waitList | async)?.length}}</span>
-      </button>
-    </ion-buttons>
+    <!--<ion-buttons end>-->
+    <!--<button color="light">-->
+    <div class="notification">
+      <ion-icon name="ios-notifications-outline"></ion-icon>
+      <span style="color: red;">{{(waitList | async)?.length}}</span>
+    </div>
+
+    <!--</button>-->
+    <!--</ion-buttons>-->
 
     <ion-buttons end>
-    <button ion-button="" color="light" (click)="logoutUser()">
-      <ion-icon name="log-out"></ion-icon>
-    </button>
-  </ion-buttons>
+      <button ion-button="" color="light" (click)="logoutUser()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -26,19 +30,19 @@
 
   <ion-list>
     <ion-list-header>
-    Lists Waiting For your Action
+      Lists Waiting For your Action
     </ion-list-header>
-    <ion-item-sliding  *ngFor="let liste of (waitList | async)">
+    <ion-item-sliding *ngFor="let liste of (waitList | async)">
       <ion-item>
 
         <ion-avatar item-start>
-          <img src="assets/imgs/todolistLogo.png" >
+          <img src="{{liste.url_image}}">
         </ion-avatar>
 
-        <h2 >{{liste.name}}</h2>
+        <h2>{{liste.name}}</h2>
         <!--<h3>By : {{Liste.creator || 'Default Name'}}</h3>-->
         <h3>By : Default Name</h3>
-        <p >{{liste.desc}}</p>
+        <p>{{liste.desc}}</p>
 
         <!--<ion-note item-end>{{liste.creation_date | timeAgo}}</ion-note>-->
         <!--<ion-note item-end>6h Ago</ion-note>-->
@@ -61,25 +65,25 @@
     </ion-item-sliding>
 
 
-
-
-
     <ion-list-header>
       Accepted Lists
     </ion-list-header>
-    <ion-item-sliding  *ngFor="let list of (acceptedList | async)">
+    <ion-item-sliding *ngFor="let list of (acceptedList | async)">
       <ion-item>
         <ion-avatar item-start>
-          <img src="assets/imgs/todolistLogo.png" >
+          <img src="{{list.url_image}}">
         </ion-avatar>
-        <h2 >{{list.name}}</h2>
+        <h2>{{list.name}}</h2>
         <!--<h3>By : {{Liste.createdBy || 'Default Name'}}</h3>-->
         <h3>By : Default Name</h3>
-        <p >{{list.desc}}</p>
+        <p>{{list.desc}}</p>
         <!--<ion-note item-end>{{list.creation_date | timeAgo}}</ion-note>-->
       </ion-item>
       <ion-item-options side="left">
-        <button ion-button color="danger" (click)="removeList(list)"><ion-icon name="md-trash"></ion-icon> Remove </button>
+        <button ion-button color="danger" (click)="removeList(list)">
+          <ion-icon name="md-trash"></ion-icon>
+          Remove
+        </button>
       </ion-item-options>
     </ion-item-sliding>
 

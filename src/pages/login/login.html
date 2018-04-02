@@ -10,13 +10,14 @@
 
     <!--[ngClass]="(ads_action==1)?'with-ads':'no-ads'"-->
 
-                <!--TO chose ads or not -->
-    <!--<div (click)="ads_function()" class="ads">-->
-      <!--<img src="assets/imgs/noAds.JPG" *ngIf="ads_action==0">-->
-      <!--<img src="assets/imgs/withads.JPG" *ngIf="ads_action==1">-->
+    <!--TO chose ads or not -->
 
-    <!--</div>-->
+    <div (click)="ads_function()" class="ads">
+      <img  width="30" height="30" src="assets/imgs/noAds.png" *ngIf="ads_action==0">
+      <img  width="30" height="30" src="assets/imgs/withAds.png" *ngIf="ads_action==1">
+    </div>
 
+    <!--<ion-img width="20" height="20" src="assets/imgs/withAds.png"></ion-img>-->
 
 
     <div class="inputs">
