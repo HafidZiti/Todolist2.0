@@ -16,6 +16,10 @@ import {RegisterPage} from "../register/register";
 import {UserProfile} from "../../Models/Todoliste";
 import {AuthserviceProvider} from "../../providers/authservice/authservice";
 import {copy} from "@ionic/app-scripts";
+import {
+  AdMobFree,
+
+} from '@ionic-native/admob-free';
 
 @IonicPage()
 @Component({
@@ -39,6 +43,7 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
+              private adMobFree: AdMobFree,
               private ofAuth: AngularFireAuth,
               private _FirebaseProvider: AuthserviceProvider,
               // public _facebook:Facebook
@@ -48,6 +53,8 @@ export class LoginPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
     console.log("popAll");
+    this.adMobFree.banner.remove();
+
     if (JSON.parse(localStorage.getItem('_currentUser')) != null)
       this.navCtrl.setRoot('TodolistPage');
   }
