@@ -23,6 +23,8 @@ export interface  dataToSend {
 
 export class ModaltodolistPage {
   todolist = {} as TodoList;
+  toEdit : Boolean = false;
+  recieve_data;
 
   datatoSend = {} as dataToSend;
 
@@ -39,13 +41,21 @@ export class ModaltodolistPage {
 
   ionViewWillLoad() {
     let data = this.navParams.get('dataName');
+
+    if (data){
+      this.toEdit = true;
+      this.recieve_data = data;
+    }
   }
 
   chargeData(_list:TodoList) {
     console.log("data a envoyer", _list);
     this.datatoSend.liste = _list;
     console.log("data a envoyer", this.datatoSend);
-    this.view.dismiss(this.datatoSend);
+    if (this.toEdit)
+      this.view.dismiss(this.recieve_data);
+    else
+      this.view.dismiss(this.datatoSend);
   }
 
   closeModal() {

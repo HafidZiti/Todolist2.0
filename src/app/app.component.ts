@@ -21,10 +21,9 @@ export class MyApp {
 
   menu=[
     // {title:'Accueil',component:AccueilPage},
-    {title:'Mes Listes',component:TodolistPage},
-    {title:'Listes Partagées',component:SharedtodolistePage},
-    {title:'A Propos',component:AboutPage},
-
+    {title:'Mes Listes',component:TodolistPage,icon:'person'},
+    {title:'Listes Partagées',component:SharedtodolistePage,icon:'people'},
+    {title:'A Propos',component:AboutPage,icon:'md-information-circle'},
   ];
 
       //  _CurrentUser:UserProfile;

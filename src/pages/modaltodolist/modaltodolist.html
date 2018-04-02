@@ -13,36 +13,86 @@
 </ion-header>
 
 <ion-content padding>
-  <div class="action-sheets-basic-page">
-    <button ion-button block (click)="openOption()">
-      Associate a Pictures  &nbsp; <ion-icon name="ios-camera"></ion-icon>
-    </button>
 
+
+
+  <!--TO Add a New List -->
+  <div *ngIf="toEdit == flase" >
+
+    <div class="action-sheets-basic-page">
+      <button ion-button block (click)="openOption()">
+        Associate a Pictures &nbsp;
+        <ion-icon name="ios-camera"></ion-icon>
+      </button>
+
+    </div>
+
+    <img [src]="this.datatoSend.imageBase64" *ngIf="this.datatoSend.imageBase64" width="500px" height="300px">
+
+    <form (ngSubmit)="chargeData(todolist)">
+      <br>
+      <br>
+      <ion-list class="list">
+        <ion-item no-lines>
+          <ion-label color="primary">Title</ion-label>
+          <ion-input type="text" [(ngModel)]="todolist.name" name="titre"></ion-input>
+        </ion-item>
+        <br>
+
+        <ion-item>
+          <ion-label color="primary">Description</ion-label>
+          <ion-textarea rows="6" [(ngModel)]="todolist.desc" name="desc"></ion-textarea>
+        </ion-item>
+
+      </ion-list>
+      <!--<br>-->
+      <ion-buttons text-center>
+        <button ion-button color="dark" type="submit">Save</button>
+      </ion-buttons>
+
+    </form>
   </div>
 
-  <img [src]="this.datatoSend.imageBase64" *ngIf="this.datatoSend.imageBase64" width="500px" height="300px">
 
-  <form (ngSubmit)="chargeData(todolist)">
-    <br>
-    <br>
-    <ion-list class="list">
-      <ion-item no-lines>
-        <ion-label color="primary">Title</ion-label>
-        <ion-input type="text" [(ngModel)]="todolist.name" name="titre"></ion-input>
-      </ion-item>
+  <!--TO Update Liste -->
+
+  <div *ngIf="toEdit == true" >
+
+    <div class="action-sheets-basic-page">
+      <button ion-button block (click)="openOption()">
+        Change Picture&nbsp;
+        <ion-icon name="ios-camera"></ion-icon>
+      </button>
+
+    </div>
+
+    <img [src]="recieve_data.url_image" *ngIf="recieve_data.url_image" width="500px" height="300px">
+
+    <form (ngSubmit)="chargeData()">
       <br>
+      <br>
+      <ion-list class="list">
+        <ion-item no-lines>
+          <ion-label color="primary">Title</ion-label>
+          <ion-input type="text" value="{{recieve_data.name}}"  [(ngModel)]="recieve_data.name" name="titre"></ion-input>
+        </ion-item>
+        <br>
 
-      <ion-item>
-        <ion-label color="primary">Description</ion-label>
-        <ion-textarea rows="6" [(ngModel)]="todolist.desc" name="desc"></ion-textarea>
-      </ion-item>
+        <ion-item>
+          <ion-label color="primary">Description</ion-label>
+          <ion-textarea rows="6" [(ngModel)]="recieve_data.desc"  name="desc" value="{{recieve_data.desc}}"></ion-textarea>
+        </ion-item>
 
-    </ion-list>
-    <!--<br>-->
-    <ion-buttons text-center>
-      <button ion-button color="dark" type="submit">Save</button>
-    </ion-buttons>
+      </ion-list>
+      <!--<br>-->
+      <ion-buttons text-center>
+        <button ion-button color="dark" type="submit">Save</button>
+      </ion-buttons>
 
-  </form>
+    </form>
+  </div>
+
+
+
 
 </ion-content>

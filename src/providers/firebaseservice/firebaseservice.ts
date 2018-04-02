@@ -97,13 +97,23 @@ export class FirebaseserviceProvider {
     listItem$.set(item);
   }
 
+  public updateList(_todolist: TodoList): Promise<void> {
+    return this.db.list('Listes/'.concat(this.getUidCurrentUser())).set(_todolist.uuid, _todolist);
+  }
+
+
   public updateItemFromList(_todolist: TodoList, _item: TodoItem): Promise<void> {
     return this.db.list('Items/'.concat(_todolist.uuid)).set(_item.uuid, _item);
+  }
+
+  public removeList(_todolist: TodoList,): Promise<void> {
+    return this.db.list('Listes/'.concat(this.currUser.uid)).remove(_todolist.uuid);
   }
 
   public removeItemFromList(_todolist: TodoList,_uidItem): Promise<void> {
     return this.db.list('Items/' + _todolist.uuid).remove(_uidItem);
   }
+
 
   public sahredListByEmail(_liste:TodoList,_email:string){
     this.getUserUid(_email).then((user:UserProfile)=>{
@@ -167,6 +177,8 @@ export class FirebaseserviceProvider {
     // })
 
   }
+
+
 
 
   /*  public getLists(): Observable<TodoList[]> {

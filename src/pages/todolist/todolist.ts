@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Modal, IonicPage, NavController, NavParams, ModalController, Platform} from 'ionic-angular';
+import {Modal, IonicPage, NavController, NavParams, ModalController, Platform,AlertController, ToastController} from 'ionic-angular';
 import {TodoList} from "../../Models/Todoliste";
 import {FirebaseserviceProvider} from "../../providers/firebaseservice/firebaseservice"
 import {AngularFireDatabase, AngularFireList, AngularFireObject} from 'angularfire2/database';
@@ -27,7 +27,9 @@ export class TodolistPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
+              public toastCtrl: ToastController,
               private _modal: ModalController,
+              public alertCtrl: AlertController,
               private _Fireservice: FirebaseserviceProvider,
               private afAuth: AngularFireAuth,
               private imagefirebase: ImagefirebaseProvider,
@@ -135,6 +137,60 @@ export class TodolistPage {
         }
       }
     }));
+  }
+
+  private openUpdateModal(_list:TodoList) {
+    let myData =
+      {
+        id_liste: _list.id,
+        uuid: _list.uuid,
+        name: _list.name,
+        desc: _list.desc,
+        url_image: _list.url_image
+      }
+    const myModal: Modal = this._modal.create('ModaltodolistPage', {dataName: myData});
+    myModal.present();
+    myModal.onDidDismiss((data => {
+      console.log('OKK', data);
+      if (data != null) {
+        let edited_list : TodoList = {uuid: data.uuid, name: data.name, desc: data.desc, url_image: data.url_image};
+        this._Fireservice.updateList(edited_list);
+        //this.serviceliste.editTodo(id_liste, edit_item);
+      }
+    }));
+  }
+
+  private removeList(_list:TodoList){
+    let prompt = this.alertCtrl.create({
+      title: 'Delete List',
+      message: "Are you sure you want to delete this List?",
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+          }
+        },
+        {
+          text: 'Yes',
+          handler: _ => this._Fireservice.removeList(_list)
+            .then(_ => {
+              this.listes01 = this._Fireservice.getTodoList();
+              this.showToast('middle', 'successful removal')
+            })
+            .catch(err => console.log("Deletion is not successful"))
+        }]
+    });
+    prompt.present();
+  }
+
+  showToast(position: string, msg: string) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      position: position
+    });
+
+    toast.present(toast);
   }
 
   logoutUser() {
