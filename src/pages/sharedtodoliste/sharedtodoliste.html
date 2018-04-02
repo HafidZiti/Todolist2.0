@@ -1,5 +1,4 @@
 <ion-header>
-
   <ion-navbar color="secondary">
     <ion-title>Shared TodoList</ion-title>
     <button ion-button="" menuToggle="">
@@ -41,7 +40,7 @@
 
         <h2>{{liste.name}}</h2>
         <!--<h3>By : {{Liste.creator || 'Default Name'}}</h3>-->
-        <h3>By : Default Name</h3>
+        <h3>By : {{liste.createdBy || "Default name"}}</h3>
         <p>{{liste.desc}}</p>
 
         <!--<ion-note item-end>{{liste.creation_date | timeAgo}}</ion-note>-->
@@ -71,12 +70,12 @@
     <ion-item-sliding *ngFor="let list of (acceptedList | async)">
       <ion-item>
         <ion-avatar item-start>
-          <img src="{{list.url_image}}">
+          <img src="{{list.url_image}}" (click)="onloadItemsPage(list)">
         </ion-avatar>
-        <h2>{{list.name}}</h2>
+        <h2 (click)="onloadItemsPage(list)">{{list.name}}</h2>
         <!--<h3>By : {{Liste.createdBy || 'Default Name'}}</h3>-->
-        <h3>By : Default Name</h3>
-        <p>{{list.desc}}</p>
+        <h3>By : {{list.createdBy || "Default name"}}</h3>
+        <p (click)="onloadItemsPage(list)">{{list.desc}}</p>
         <!--<ion-note item-end>{{list.creation_date | timeAgo}}</ion-note>-->
       </ion-item>
       <ion-item-options side="left">

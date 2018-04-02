@@ -73,6 +73,12 @@ export class SharedtodolistePage {
     this._Fireservice.removeSharedList(list);
   }
 
+  onloadItemsPage(liste: TodoList) {
+    console.log("function clicked");
+    let params = {listeSelected: liste};
+    this.navCtrl.push("TodoitemsPage", params);
+  }
+
 
   logoutUser() {
     this.afAuth.auth.signOut().then()

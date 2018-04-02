@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component} from '@angular/core'; //Input
 import {Modal, IonicPage, NavController, NavParams, ModalController, Platform,AlertController, ToastController} from 'ionic-angular';
 import {TodoList} from "../../Models/Todoliste";
 import {FirebaseserviceProvider} from "../../providers/firebaseservice/firebaseservice"
@@ -22,6 +22,9 @@ import {UserProfile} from "../../Models/Todoliste";
 export class TodolistPage {
   listes01: Observable<TodoList[]> = null;
   //itemListe: Observable<TodoList[]> = null;
+
+ // @Input() waitList: Observable<TodoList[]> = null;
+
 
   currUser: UserProfile;
 
@@ -110,7 +113,6 @@ export class TodolistPage {
   onloadItemsPage(liste: TodoList) {
     let params = {listeSelected: liste};
     this.navCtrl.push("TodoitemsPage", params);
-
   }
 
   private openTodoListModal() {
