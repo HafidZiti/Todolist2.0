@@ -9,7 +9,8 @@
 <ion-content padding>
   <ion-card>
 
-    <img width="250" src="{{_currentListe.url_image}}"/>
+    <img  src="{{_currentListe.url_image}}"/>
+
 
     <ion-card-content>
       <ion-card-title>
@@ -22,7 +23,7 @@
 
     <ion-row no-padding>
       <ion-col>
-        <button ion-button clear small color="danger" icon-start>
+        <button ion-button clear small color="danger" icon-start (click)="_openUpdateModal(_currentListe)">
           <ion-icon name='create'></ion-icon>
           Update
         </button>
@@ -42,7 +43,7 @@
       </ion-col>
 
       <ion-col text-right>
-        <button ion-button clear small color="danger" icon-start>
+        <button ion-button clear small color="danger" icon-start (click)="_removeList(_currentListe)">
           <ion-icon name='md-trash'></ion-icon>
           Delete
         </button>
@@ -65,7 +66,7 @@
             <h2>{{item.name}}</h2>
           </ion-col>
         </ion-row>
-        <p>{{item.desc | slice:0:15}}...</p>
+        <p>{{item.desc | slice:0:38}}...</p>
       </ion-item>
       <ion-item-options>
         <button ion-button color="primary" icon-start (click)="openUpdateModal(item)">

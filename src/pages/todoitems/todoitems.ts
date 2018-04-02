@@ -1,10 +1,19 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, ModalController,Modal,ToastController,AlertController} from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ModalController,
+  Modal,
+  ToastController,
+  AlertController
+} from 'ionic-angular';
 import {FirebaseserviceProvider} from "../../providers/firebaseservice/firebaseservice";
 import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {TodoList, TodoItem} from "../../Models/Todoliste";
-import { BarcodeScanner,BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
+import {BarcodeScanner, BarcodeScannerOptions} from '@ionic-native/barcode-scanner';
+import {ImagefirebaseProvider} from "../../providers/imagefirebase/imagefirebase";
 
 @IonicPage()
 @Component({
@@ -15,10 +24,11 @@ export class TodoitemsPage {
 
 
   itemsListe: Observable<TodoItem[]> = null;
-  _currentListe:TodoList ;
+  _currentListe: TodoList;
 
   constructor(public navCtrl: NavController,
-              public barcodeScanner:BarcodeScanner,
+              private imagefirebase: ImagefirebaseProvider,
+              public barcodeScanner: BarcodeScanner,
               public alertCtrl: AlertController,
               public toastCtrl: ToastController,
               private _modal: ModalController,
@@ -43,9 +53,9 @@ export class TodoitemsPage {
   generateQRcode(_list: TodoList) {
     let currentUserUid = this._Fireservice.getUidCurrentUser();
     let uidUserList = currentUserUid.concat('/').concat(_list.uuid);
-     console.log("uid Combinés", uidUserList);
+    console.log("uid Combinés", uidUserList);
     this.barcodeScanner.encode(this.barcodeScanner.Encode.TEXT_TYPE, uidUserList).then((res) => {
-     console.log(res)
+      console.log(res)
       //this.encodedData = res;
     }, (err) => {
       // An error occurred
@@ -59,8 +69,8 @@ export class TodoitemsPage {
     myModal.onDidDismiss((data => {
       console.log('OKK', data);
       if (data != null) {
-        let _todoitems: TodoItem = { name: data.name, desc: data.desc,complete: false}
-        this._Fireservice.insertItmes(this._currentListe,_todoitems);
+        let _todoitems: TodoItem = {name: data.name, desc: data.desc, complete: false}
+        this._Fireservice.insertItmes(this._currentListe, _todoitems);
       }
     }));
   }
@@ -76,7 +86,7 @@ export class TodoitemsPage {
   }
 
 
-  private openUpdateModal(item:TodoItem) {
+  private openUpdateModal(item: TodoItem) {
     let myData =
       {
         id_liste: item.id,
@@ -115,7 +125,7 @@ export class TodoitemsPage {
             .then(_ => {
               this.itemsListe = this._Fireservice.getItemsList(this._currentListe.uuid);
               this.showToast('middle', 'successful removal')
-             })
+            })
             .catch(err => console.log("Deletion is not successful"))
         }]
     });
@@ -123,7 +133,7 @@ export class TodoitemsPage {
 
   }
 
-  ShowEmailShareAlert(_liste:TodoList){
+  ShowEmailShareAlert(_liste: TodoList) {
     let prompt = this.alertCtrl.create({
       title: 'Shared With',
       message: "Enter a personal email with which you will share this list",
@@ -143,12 +153,79 @@ export class TodoitemsPage {
         {
           text: 'Save',
           handler: data => {
-            this._Fireservice.sahredListByEmail(_liste,data.email)
-              // .then(_ => this.showToast('middle','List succesfuly sahred'))
-              // .catch(err => this.showToast('middle','Something wrong happened'))
+            this._Fireservice.sahredListByEmail(_liste, data.email)
+            // .then(_ => this.showToast('middle','List succesfuly sahred'))
+            // .catch(err => this.showToast('middle','Something wrong happened'))
           }
         }
       ]
+    });
+    prompt.present();
+  }
+
+
+//  update Current Liste
+  private _openUpdateModal(_list: TodoList) {
+    let myData =
+      {
+        id_liste: _list.id,
+        uuid: _list.uuid,
+        name: _list.name,
+        desc: _list.desc,
+        url_image: _list.url_image
+      }
+    const myModal: Modal = this._modal.create('ModaltodolistPage', {dataName: myData});
+    myModal.present();
+    myModal.onDidDismiss((data => {
+      console.log('OKK', data);
+      if (data != null) {
+        if (data.url_image_base64) {
+          let UploadTask = this.imagefirebase.uploadImage(data.url_image_base64);
+          UploadTask.then(PictureSaved => {
+            console.log('url image ', PictureSaved.downloadURL);
+            let edited_list: TodoList = {
+              uuid: data.uuid,
+              name: data.name,
+              desc: data.desc,
+              url_image: PictureSaved.downloadURL
+            }
+            this._Fireservice.updateList(edited_list).then(()=>{
+              this._currentListe = edited_list;
+            });
+          })
+        } else {
+          let edited_list: TodoList = {uuid: data.uuid, name: data.name, desc: data.desc, url_image: data.url_image};
+          this._Fireservice.updateList(edited_list).then(()=>{
+            this._currentListe = edited_list;
+          });
+        }
+        //this.serviceliste.editTodo(id_liste, edit_item);
+      }
+    }));
+  }
+
+  //Remove Current List
+
+  private _removeList(_list: TodoList) {
+    let prompt = this.alertCtrl.create({
+      title: 'Delete List',
+      message: "Are you sure you want to delete this List?",
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+          }
+        },
+        {
+          text: 'Yes',
+          handler: _ => this._Fireservice.removeList(_list)
+            .then(_ => {
+             // this.listes01 = this._Fireservice.getTodoList();
+              this.showToast('middle', 'successful removal');
+              this.navCtrl.setRoot('TodolistPage');
+            })
+            .catch(err => console.log("Deletion is not successful"))
+        }]
     });
     prompt.present();
   }

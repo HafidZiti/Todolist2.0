@@ -8,6 +8,11 @@
     </button>
 
 
+    <div class="notification">
+      <ion-icon name="ios-notifications-outline"></ion-icon>
+      <span style="color: red;">{{(waitList | async)?.length}}</span>
+    </div>
+
     <ion-buttons end>
       <button ion-button="" color="light" (click)="logoutUser()">
         <ion-icon name="log-out"></ion-icon>
