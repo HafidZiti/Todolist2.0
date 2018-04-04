@@ -13,9 +13,10 @@ export class AuthserviceProvider {
   }
 
   saveUser(_user: UserProfile) {
-    if (this.checkUserIfArealySaved(_user) == 0) {
+    console.log("Save User clicked !! ");
+   // if (this.checkUserIfArealySaved(_user) == 0) {
       this.db.list('Users/').set(_user.uid, _user);
-    } else console.log('user deja existe');
+  //  } else console.log('user deja *****');
   }
 
 
